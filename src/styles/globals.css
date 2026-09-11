@@ -1,0 +1,216 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+/*
+ * Body typeface: "Caveat", distributed through Fontsource (the npm mirror of
+ * Google Fonts) so the build stays self-hosted and works offline.
+ */
+@import '@fontsource-variable/caveat';
+
+/*
+ * The Tailwind theme extension (brand colours, font families, carved radii)
+ * lives in `tailwind.config.ts` so the design tokens sit in a single typed file.
+ */
+@config "../../tailwind.config.ts";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ==========================================================================
+ * "Cordel Arcade" design tokens
+ * --------------------------------------------------------------------------
+ * Naming note: the design system was authored in Portuguese. The identifiers
+ * below are the English equivalents, kept in sync with the designer's names:
+ *
+ *   --color-carved-black  ->  "Preto Entalhe"   (#1C1410)
+ *   --color-bone-white    ->  "Branco Osso"     (#F4EEDD)
+ *   --color-sertao-brown  ->  "Marrom Sertao"   (#6B4226)
+ *
+ * These hex values come from an earlier craft/beige style guide and are still
+ * pending revalidation by the designer. Change them here only; every component
+ * consumes them through Tailwind utilities or the semantic tokens below.
+ * ========================================================================== */
+
+:root {
+  /* Brand palette */
+  --color-carved-black: #1c1410;
+  --color-bone-white: #f4eedd;
+  --color-sertao-brown: #6b4226;
+
+  /* Display typeface for headings.
+   *
+   * TODO(designer): the "Xilosa" font files have not been delivered yet. Once
+   * they arrive, drop them in `src/assets/fonts/` and declare the face here:
+   *
+   *   @font-face {
+   *     font-family: "Xilosa";
+   *     src: url("/fonts/xilosa.woff2") format("woff2");
+   *     font-display: swap;
+   *   }
+   *
+   * Until then the stack falls back to a generic serif so headings stay
+   * visually distinct from body copy. */
+  --font-title-stack: 'Xilosa', 'Times New Roman', serif;
+  --font-body-stack: 'Caveat Variable', 'Caveat', cursive;
+
+  /* shadcn/ui semantic tokens, mapped onto the brand palette so every
+   * generated component is on-brand without per-component overrides. */
+  --background: var(--color-bone-white);
+  --foreground: var(--color-carved-black);
+  --card: var(--color-bone-white);
+  --card-foreground: var(--color-carved-black);
+  --popover: var(--color-bone-white);
+  --popover-foreground: var(--color-carved-black);
+  --primary: var(--color-carved-black);
+  --primary-foreground: var(--color-bone-white);
+  --secondary: var(--color-sertao-brown);
+  --secondary-foreground: var(--color-bone-white);
+  --muted: oklch(0.93 0.02 80);
+  --muted-foreground: var(--color-sertao-brown);
+  --accent: var(--color-sertao-brown);
+  --accent-foreground: var(--color-bone-white);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: var(--color-carved-black);
+  --input: var(--color-carved-black);
+  --ring: var(--color-sertao-brown);
+  --chart-1: var(--color-carved-black);
+  --chart-2: var(--color-sertao-brown);
+  --chart-3: oklch(0.55 0.05 60);
+  --chart-4: oklch(0.7 0.04 70);
+  --chart-5: oklch(0.82 0.03 80);
+  --radius: 0.625rem;
+  --sidebar: var(--color-bone-white);
+  --sidebar-foreground: var(--color-carved-black);
+  --sidebar-primary: var(--color-carved-black);
+  --sidebar-primary-foreground: var(--color-bone-white);
+  --sidebar-accent: var(--color-sertao-brown);
+  --sidebar-accent-foreground: var(--color-bone-white);
+  --sidebar-border: var(--color-carved-black);
+  --sidebar-ring: var(--color-sertao-brown);
+}
+
+/*
+ * Dark mode is not part of the "Cordel Arcade" direction. This block only keeps
+ * the `dark:` variants that ship inside shadcn components from rendering with
+ * missing values, should the `.dark` class ever be applied.
+ */
+.dark {
+  --background: var(--color-carved-black);
+  --foreground: var(--color-bone-white);
+  --card: var(--color-carved-black);
+  --card-foreground: var(--color-bone-white);
+  --popover: var(--color-carved-black);
+  --popover-foreground: var(--color-bone-white);
+  --primary: var(--color-bone-white);
+  --primary-foreground: var(--color-carved-black);
+  --secondary: var(--color-sertao-brown);
+  --secondary-foreground: var(--color-bone-white);
+  --muted: oklch(0.3 0.02 50);
+  --muted-foreground: oklch(0.8 0.03 70);
+  --accent: var(--color-sertao-brown);
+  --accent-foreground: var(--color-bone-white);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: var(--color-bone-white);
+  --input: var(--color-bone-white);
+  --ring: var(--color-sertao-brown);
+  --sidebar: var(--color-carved-black);
+  --sidebar-foreground: var(--color-bone-white);
+  --sidebar-primary: var(--color-bone-white);
+  --sidebar-primary-foreground: var(--color-carved-black);
+  --sidebar-accent: var(--color-sertao-brown);
+  --sidebar-accent-foreground: var(--color-bone-white);
+  --sidebar-border: var(--color-bone-white);
+  --sidebar-ring: var(--color-sertao-brown);
+}
+
+@theme inline {
+  --font-sans: var(--font-body-stack);
+  --font-heading: var(--font-title-stack);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-title;
+  }
+}
+
+/* ==========================================================================
+ * Carved outlines ("entalhe")
+ * --------------------------------------------------------------------------
+ * Multi-value asymmetric border radii that imitate the hand-cut edge of a
+ * woodcut print. Apply them to cards, buttons and image frames, alternating
+ * between the variants so no two neighbouring shapes share the same silhouette.
+ *
+ * Rendering rules that go with these shapes, inherited from traditional
+ * woodcut printing. They apply to every component built on top of this base:
+ *
+ *   - Shadow is ALWAYS hatching (parallel or cross-hatched strokes). Never a
+ *     gradient, never a soft drop-shadow, never a blur.
+ *   - No glow, no bloom, no transparency, no saturated colours outside the
+ *     three brand tokens above.
+ *   - Strokes are thick and slightly irregular. Avoid perfectly smooth vectors
+ *     and avoid a uniform, perfectly symmetrical radius.
+ * ========================================================================== */
+
+.carved-1 {
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.carved-2 {
+  border-radius: 15px 225px 15px 255px / 225px 15px 255px 15px;
+}
+
+.carved-3 {
+  border-radius: 125px 20px 140px 25px / 20px 130px 20px 150px;
+}
