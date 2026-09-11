@@ -1,0 +1,86 @@
+# AGENTS.md
+
+Active project: **digital-invite** at `/home/arthur/Coding/muri-birthday/digital-invite` (the git
+repo; `/home/arthur` itself is not a repo). It is an interactive digital invitation for a 50th
+birthday party (27/09/2026) with two fronts: a public invite + RSVP page at `/` and a
+login-protected admin dashboard at `/admin`. React 19 + TypeScript 6 (strict) on Vite 8, Tailwind
+v4, shadcn/ui (Radix "radix-nova" preset), React Router v7, React Hook Form + Zod, Framer Motion,
+Supabase (Postgres + Auth) called directly from the browser. There is no backend — data safety
+comes from Postgres Row Level Security.
+
+## Dev environment
+
+Package manager is **Yarn** (`yarn.lock`; no npm/pnpm lockfile).
+
+```bash
+yarn install
+cp .env.example .env.local   # fill VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY
+yarn dev                     # Vite dev server
+```
+
+Both env vars are typed in `src/env.d.ts` and read in `src/lib/supabaseClient.ts`; without them the
+client is constructed with `undefined` and every Supabase call fails. The anon key is public by
+design — never put a `service_role` key in this repo.
+
+## Build & test
+
+```bash
+yarn typecheck     # tsc -b --noEmit
+yarn lint          # eslint . --ext ts,tsx
+yarn lint:fix
+yarn format        # prettier --write .
+yarn format:check
+yarn build         # tsc -b && vite build
+yarn preview       # serve the production build
+```
+
+There is **no test framework installed** — no vitest/jest, no test files. Don't invent a
+`yarn test`. Verification = `yarn lint && yarn typecheck && yarn build`.
+
+## Layout
+
+```
+src/main.tsx, src/App.tsx        entry + RouterProvider
+src/routes/router.tsx            createBrowserRouter route table
+src/routes/ProtectedRoute.tsx    admin session guard
+src/pages/                       InvitePage, AdminLoginPage, AdminDashboardPage
+src/components/{invite,admin,layout}/
+src/components/ui/               shadcn CLI output — do NOT hand-edit (eslint- and prettier-ignored)
+src/hooks/                       useSession, useRsvpList
+src/lib/supabaseClient.ts, src/lib/utils.ts (re-exports `cn`), src/lib/schemas/rsvpSchema.ts
+src/styles/globals.css           CSS vars, font stacks, .carved-1/2/3 utilities, `@config` → tailwind.config.ts
+```
+
+## Conventions
+
+- **Code is English, UI text and docs are Portuguese.** Zod messages, labels, copy → pt-BR;
+  identifiers, filenames, comments → English. Supabase columns are Portuguese
+  (`nome`, `email`, `numero_pessoas`); the mapping lives only in `src/lib/schemas/rsvpSchema.ts`.
+- Components/pages: `PascalCase.tsx`, **named** exports (`export function InvitePage()`), no default
+  exports. Hooks: `useThing.ts`. Props typed with a local `interface XProps`.
+- Imports use the `@/` alias (configured in both `vite.config.ts` and `tsconfig.app.json`), not
+  relative `../..` paths. Inline type imports: `import { type ReactNode } from 'react'`.
+- Prettier: no semicolons, single quotes, trailing commas, printWidth 100, 2 spaces.
+- Every module starts with a JSDoc block explaining intent; unfinished work is marked `TODO:` in
+  that block with the intended implementation spelled out — keep that style.
+- ESLint is type-aware and strict: `no-explicit-any`, `no-unused-vars`, `camelcase`,
+  `id-length` min 3 (exceptions `id, to, db, fn, on`), `complexity` max 8, `max-depth` 3,
+  `max-lines-per-function` 60, `max-params` 3, `eqeqeq`, `no-else-return`, `prefer-const`,
+  `react-hooks/exhaustive-deps: error`. Write small functions or lint fails.
+- Design rules (from README): shadows are hatching only — no gradients, soft drop shadows, glow, or
+  transparency; thick, irregular strokes. Tokens: `carved-black #1C1410`, `bone-white #F4EEDD`,
+  `sertao-brown #6B4226`; families `font-title` (Xilosa) and `font-body` (Caveat).
+
+## Pitfalls
+
+- Project is at the **setup** stage: most components, `useSession`, `useRsvpList`, and `RsvpForm`
+  are deliberate stubs. `ProtectedRoute` intentionally does **not** redirect yet — adding
+  `<Navigate>` before `useSession` is real would lock `/admin` for everyone.
+- The Xilosa title font has not been delivered; `globals.css` has a `TODO` with the `@font-face`
+  snippet and falls back to a generic serif. Don't "fix" it with a substitute font.
+- Tailwind v4 has no `content` array — the theme extension in `tailwind.config.ts` is picked up via
+  the `@config` directive inside `src/styles/globals.css`. Edit tokens in both places as documented
+  there.
+- `dist/` is committed-looking build output; regenerate with `yarn build`, never hand-edit.
+- Add shadcn components with the CLI (`shadcn`, devDependency) so they land in
+  `src/components/ui/`; that directory is excluded from lint and format on purpose.
