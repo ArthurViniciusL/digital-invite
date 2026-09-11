@@ -51,6 +51,12 @@ src/lib/supabaseClient.ts, src/lib/utils.ts (re-exports `cn`), src/lib/schemas/r
 src/styles/globals.css           CSS vars, font stacks, .carved-1/2/3 utilities, `@config` → tailwind.config.ts
 ```
 
+## Agent rules
+
+Read `.agents/rules/*.md` before making changes: git commands that change state and `yarn dev`
+need authorization first; `any` is forbidden (`unknown` is fine); explicit casting (`as`) is a
+last resort; comments should be rare; ESLint's existing config is not to be worked around.
+
 ## Conventions
 
 - **Code is English, UI text and docs are Portuguese.** Zod messages, labels, copy → pt-BR;
@@ -61,8 +67,8 @@ src/styles/globals.css           CSS vars, font stacks, .carved-1/2/3 utilities,
 - Imports use the `@/` alias (configured in both `vite.config.ts` and `tsconfig.app.json`), not
   relative `../..` paths. Inline type imports: `import { type ReactNode } from 'react'`.
 - Prettier: no semicolons, single quotes, trailing commas, printWidth 100, 2 spaces.
-- Every module starts with a JSDoc block explaining intent; unfinished work is marked `TODO:` in
-  that block with the intended implementation spelled out — keep that style.
+- No comment explains what code already says through naming — see `.agents/rules/`. Reserve a
+  comment for a genuinely non-obvious *why*.
 - ESLint is type-aware and strict: `no-explicit-any`, `no-unused-vars`, `camelcase`,
   `id-length` min 3 (exceptions `id, to, db, fn, on`), `complexity` max 8, `max-depth` 3,
   `max-lines-per-function` 60, `max-params` 3, `eqeqeq`, `no-else-return`, `prefer-const`,
