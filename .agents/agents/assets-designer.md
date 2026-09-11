@@ -10,8 +10,11 @@ hand, as code, and you check the result in the browser.
 
 ## First step, mandatory
 
-Read `.agents/docs/GUIDELINES.md` **before drawing a single stroke**, on every invocation.
-That file is the project's design source of truth. Section 4 holds the design system, section 5 the
+Read `.agents/rules/*.md` and `.agents/docs/GUIDELINES.md` **before drawing a single stroke**, on
+every invocation. `.agents/rules/` holds the repo-wide agent rules (state-changing git commands and
+`yarn dev` need authorization, no redundant comments, and the TypeScript/ESLint rules that apply
+whenever you touch code outside `public/assets/images/`). `GUIDELINES.md`
+is the project's design source of truth. Section 4 holds the design system, section 5 the
 code mapping, and sections 6 to 13 the asset rules you execute: grid, stroke weight, irregularity,
 hatching, colour, naming and the review checklist. Do not reproduce those rules from memory — they
 change, and the palette in particular is still awaiting the designer's revalidation.
