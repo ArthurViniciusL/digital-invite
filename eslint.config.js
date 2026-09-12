@@ -41,6 +41,19 @@ export default tseslint.config(
       // React hooks: dependency arrays must be complete, no exceptions.
       'react-hooks/exhaustive-deps': 'error',
 
+      // Imports: use the `@/` alias instead of climbing two or more directories.
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['../../*', '../../**'],
+              message: 'Use the `@/` alias instead of a parent-relative import two or more levels up.',
+            },
+          ],
+        },
+      ],
+
       // Type safety: nothing untyped crosses a module boundary.
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/consistent-type-imports': [

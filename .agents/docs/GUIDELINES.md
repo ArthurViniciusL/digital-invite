@@ -191,6 +191,99 @@ Shadow is **always** hatching, per 4.5. Parallel lines for midtone, cross-hatchi
 - `fill-opacity`, `stroke-opacity` or `opacity` below 1
 - Any colour outside the three palette tokens
 
+
+## 9.1 Gouge marks inside solid masses
+
+Section 9 covers shadow cast onto bare paper. This section covers the opposite cut: the light marks
+the gouge leaves **inside** a filled black mass. It is what separates a carved plate from a flat
+vector silhouette, and on an illustration it is the primary texture of the style.
+
+The reference of record is **`public/assets/images/cactus_004.svg`**, drawn by the designer. Every
+number below was measured from that file. When the two disagree, the file wins and this section is
+what needs correcting. Read it before drawing; per 11.1 it is not to be rewritten.
+
+### The mark
+
+A gouge mark is a **short leaf**, not a line and not a wedge: it comes to a point at **both** ends
+and swells at its middle. That is section 7's rule about the gouge biting deeper mid-cut, expressed
+as an outline. It is always a filled `<path>` with class `paper`, never a `stroke`.
+
+| Parameter | Value |
+| --- | --- |
+| Maximum width | `0.48u` on an illustration, `1.2u` on an icon; always at mid-length |
+| Length | `0.75u` to `3.7u`, most of them near `1.7u` |
+| Bow | Slight, one direction only |
+
+Width is **independent of length** in the reference: a mark of `0.75u` and a mark of `3.7u` are both
+about `0.48u` across. Long marks are slivers, short ones are almost round. Do not scale the width
+with the length.
+
+The width profile is what separates a carved mark from a vector shard. Measured across the
+reference's 34 marks, as a fraction of each mark's own length:
+
+| Position along the mark | 5% | 25% | 50% | 75% | 95% |
+| --- | --- | --- | --- | --- | --- |
+| Width | 0.04 | 0.23 | 0.29 | 0.27 | 0.12 |
+
+The mark holds at least four fifths of its full width across its **middle 60%**, then closes fast at
+both ends. A mark that is widest near one end and tapers steadily to the other reads as a triangular
+shard, and a field of them reads as confetti rather than as cut wood. One end may close slightly
+blunter than the other; neither end is a flat cut.
+
+**A mark never spans its mass.** At `1.7u` against a trunk some `24u` tall, a mark covers well under
+a tenth of the length it sits on. A groove that runs the height of a form reads as a stripe, and the
+piece turns into a striped silhouette rather than a carved one.
+
+### The field
+
+There is no spacing value, because the marks are **not a field**. They are scattered, and the
+scattering is the point.
+
+- **Density varies by region.** In the reference: 20 marks on the trunk, 8 on one arm, 6 on the
+  other. The principal mass carries roughly three times the marks of a secondary one.
+- **No minimum mass width.** The reference's narrow arm measures `3.6u` and still carries 6 marks.
+  A narrow mass gets *fewer* marks, never zero.
+- **Count**: about 30 to 35 on a full illustration; 3 to 5 on an icon.
+- **Orientation** tends toward the local long axis of the mass, but the scatter is wide and its
+  tail matters more than its centre. Measured on the reference: two marks in three sit within 30° of
+  the axis, and **about one in six lies more than 45° off it, cutting nearly across the form**.
+  Those few cross-lying marks are what stop the set reading as a uniform texture; a field where
+  every mark runs with the axis reads as scales or seeds, not as cut wood. This is the one place the
+  style departs from the fixed 45° of section 9.
+
+### The ink budget
+
+**Under 10% of the mass area comes out.** This is the number to check when a piece looks wrong, and
+it is the reason the marks stay short. A piece that reads grey instead of dark has too much ink
+removed, and the fix is fewer or shorter marks, never thinner ones: a thinner mark disappears on
+scaling down and keeps none of the texture it cost.
+
+### Scope
+
+Both illustrations and icons carry gouge marks, at different counts and different widths.
+
+| Type | Marks | Max width | Floor size | Check |
+| --- | --- | --- | --- | --- |
+| Illustration, 256u | 30 to 35 | `0.48u` | 64px | The mass still reads dark, not grey |
+| Icon, 24u | 3 to 5, at the long end of the length range | `1.2u` | **24px** | The marks are still separate from each other |
+
+**A marked icon has a floor of 24px and the solid version is what goes below it.** Section 6 defines
+an icon as a symbol read from 16px up, and a gouge mark cannot meet that: `1u` is two thirds of a
+device pixel at 16px, so the illustration's `0.48u` mark lands on a third of a pixel and renders as
+a grey tint on the black, which is the gradient this style forbids. Widening it until it survives
+16px turns the mark into a hole. So the two versions coexist, and the consumer picks by size:
+`cactus_002.svg` solid at 16px, `cactus_005.svg` marked at 24px and above.
+
+The `1.2u` width is two and a half times the illustration's, and it was chosen by rendering the same
+icon at `0.48u`, `0.8u`, `1.0u`, `1.2u` and `1.5u` against 24px and 32px. Below `1.0u` the marks
+stay specks at 24px; at `1.5u` they start reading as holes rather than cuts.
+
+### Black hatching after this section
+
+Black hatching at 45° per section 9 stays in the system, but as an **exception**: it describes
+shadow falling on bare paper, and nothing else. It is not the default way to add texture and it never
+appears inside a filled mass. Most pieces will not need it. The reference has none.
+
 ## 10. Colour inside the `.svg` file
 
 Every file carries an internal `<style>` block with the three variables from 5.1 and their
@@ -239,7 +332,11 @@ keeps the bare name. Note that "cactus" is the English file name for the mandaca
 ## 11.1 Assets the designer delivered
 
 `public/assets/images/` already holds work exported from Inkscape and Illustrator: `broom.svg`,
-`cactus_001.svg`, `sun.svg` and `flags.png`. Read those before drawing anything new. They are the
+`cactus_001.svg`, `cactus_004.svg`, `sun.svg` and `flags.png`. `cactus_004.svg` is the reference
+of record for section 9.1: the designer took the `cactus_002.svg` silhouette, scaled it up and
+added the `entalhe` layer, so it is the one file that shows gouge marks executed rather than
+described. Its marks carry a literal `fill:#ffffff` from the Inkscape export; a file authored
+here uses `class="paper"` per section 10. Read those before drawing anything new. They are the
 reference for what "the same hand" means in checklist item 8, and they confirm the style holds in
 practice: not one of them contains a gradient or a filter.
 
@@ -287,3 +384,8 @@ Before calling an asset done:
 7. The Portuguese `<title>` is filled in and every `id` is prefixed.
 8. Placed beside the designer's assets from 11.1, they look like they came from the same hand.
 9. The file sits in `public/assets/images/`, named per section 11.
+10. Gouge marks per section 9.1: on an illustration, scaled to 64px, a marked mass still reads
+    dark and not grey; on a marked icon, at its 24px floor the marks are still separate from one
+    another and are cuts rather than holes.
+11. Under 10% of the ink area has been cut away (section 9.1). A piece reading grey has too
+    much removed.

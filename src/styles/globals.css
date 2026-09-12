@@ -6,17 +6,31 @@
  * Body typeface: "Caveat", distributed through Fontsource (the npm mirror of
  * Google Fonts) so the build stays self-hosted and works offline.
  */
+
 @import '@fontsource-variable/caveat';
+
+/*
+ * Display typeface: "Xilosa", self-hosted from `public/assets/fonts/` since it
+ * has no Fontsource/Google Fonts distribution.
+ */
+
+@font-face {
+  font-family: 'Xilosa';
+  src: url('/assets/fonts/xilosa_.ttf') format('truetype');
+  font-display: swap;
+}
 
 /*
  * The Tailwind theme extension (brand colours, font families, carved radii)
  * lives in `tailwind.config.ts` so the design tokens sit in a single typed file.
  */
+ 
 @config "../../tailwind.config.ts";
 
 @custom-variant dark (&:is(.dark *));
 
-/* ==========================================================================
+/* 
+ * ==========================================================================
  * "Cordel Arcade" design tokens
  * --------------------------------------------------------------------------
  * Naming note: the design system was authored in Portuguese. The identifiers
@@ -29,7 +43,8 @@
  * These hex values come from an earlier craft/beige style guide and are still
  * pending revalidation by the designer. Change them here only; every component
  * consumes them through Tailwind utilities or the semantic tokens below.
- * ========================================================================== */
+ * ========================================================================== 
+ */
 
 :root {
   /* Brand palette */
@@ -37,19 +52,7 @@
   --color-bone-white: #f4eedd;
   --color-sertao-brown: #6b4226;
 
-  /* Display typeface for headings.
-   *
-   * TODO(designer): the "Xilosa" font files have not been delivered yet. Once
-   * they arrive, drop them in `src/assets/fonts/` and declare the face here:
-   *
-   *   @font-face {
-   *     font-family: "Xilosa";
-   *     src: url("/fonts/xilosa.woff2") format("woff2");
-   *     font-display: swap;
-   *   }
-   *
-   * Until then the stack falls back to a generic serif so headings stay
-   * visually distinct from body copy. */
+  /* Display typeface for headings. */
   --font-title-stack: 'Xilosa', 'Times New Roman', serif;
   --font-body-stack: 'Caveat Variable', 'Caveat', cursive;
 
@@ -94,6 +97,7 @@
  * the `dark:` variants that ship inside shadcn components from rendering with
  * missing values, should the `.dark` class ever be applied.
  */
+ 
 .dark {
   --background: var(--color-carved-black);
   --foreground: var(--color-bone-white);
@@ -185,7 +189,8 @@
   }
 }
 
-/* ==========================================================================
+/* 
+ * ==========================================================================
  * Carved outlines ("entalhe")
  * --------------------------------------------------------------------------
  * Multi-value asymmetric border radii that imitate the hand-cut edge of a
@@ -201,7 +206,8 @@
  *     three brand tokens above.
  *   - Strokes are thick and slightly irregular. Avoid perfectly smooth vectors
  *     and avoid a uniform, perfectly symmetrical radius.
- * ========================================================================== */
+ * ==========================================================================
+ */
 
 .carved-1 {
   border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
