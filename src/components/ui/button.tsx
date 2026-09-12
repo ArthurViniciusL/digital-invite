@@ -18,7 +18,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        xilo: "carved-3 rounded-none border-4 border-carved-black bg-bone-white font-title text-carved-black transition-transform duration-300 hover:scale-105 hover:bg-carved-black hover:text-bone-white active:scale-95 text-sm sm:text-base",
+        xilo: "carved-3 rounded-none border-4 border-carved-black bg-bone-white font-title text-carved-black transition-transform duration-300 hover:scale-105 hover:bg-carved-black hover:text-bone-white active:scale-95 text-sm sm:text-base cursor-pointer",
       },
       size: {
         default:

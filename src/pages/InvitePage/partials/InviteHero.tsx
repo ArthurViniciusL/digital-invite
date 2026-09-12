@@ -2,10 +2,6 @@ import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { Title } from '@/components/typograph/Title'
 import { cn } from '@/lib/utils'
 
-/**
- * All copy below is draft placeholder text, not final wording — see the
- * `{{copy: ...}}` slots in openspec/changes/add-invite-hero-section/design.md.
- */
 const heroTitleLine = 'Chegou a hora da festa!'
 const buntingAlt = 'Varal de bandeirinhas coloridas de festa junina'
 
