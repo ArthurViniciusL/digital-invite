@@ -11,5 +11,5 @@ interface PageWrapperProps {
  * paper texture and the carved frame treatment.
  */
 export function PageWrapper({ children }: PageWrapperProps) {
-  return <div className="min-h-dvh bg-background text-foreground">{children}</div>
+  return <div className="px-4 min-h-dvh bg-background text-foreground flex flex-col gap-8">{children}</div>
 }

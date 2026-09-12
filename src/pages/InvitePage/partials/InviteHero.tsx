@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils'
  * `{{copy: ...}}` slots in openspec/changes/add-invite-hero-section/design.md.
  */
 const heroTitleLine = 'Chegou a hora da festa!'
-const heroSubtitle = 'O cordel do Muri...'
 const buntingAlt = 'Varal de bandeirinhas coloridas de festa junina'
 
 const buntingVariants: Variants = {
@@ -22,11 +21,6 @@ const panelVariants: Variants = {
     opacity: 1,
     transition: { duration: 0.5, delay: 0.6, ease: [0.34, 1.56, 0.64, 1] },
   },
-}
-
-const subtitleVariants: Variants = {
-  hidden: { y: 16, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.4, delay: 1.1 } },
 }
 
 interface MotionStageProps {
@@ -112,14 +106,6 @@ export function InviteHero() {
       <HeroBunting reduceMotion={reduceMotion} />
       <p className="font-body text-lg text-sertao-brown sm:text-xl">{heroTitleLine}</p>
       <HeroCenterpiece reduceMotion={reduceMotion} />
-      <motion.p
-        className="font-body text-xl text-carved-black sm:text-2xl"
-        initial={reduceMotion ? false : 'hidden'}
-        animate="visible"
-        variants={subtitleVariants}
-      >
-        {heroSubtitle}
-      </motion.p>
     </section>
   )
 }

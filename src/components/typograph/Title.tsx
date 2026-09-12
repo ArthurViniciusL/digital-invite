@@ -3,12 +3,13 @@ import { cn } from '@/lib/utils'
 
 interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
   children: ReactNode
+  as?: 'h1' | 'h2'
 }
 
-export function Title({ children, className, ...props }: TitleProps) {
+export function Title({ children, className, as: Heading = 'h1', ...props }: TitleProps) {
   return (
-    <h1 className={cn('font-bold text-4xl text-ellipsis', className)} {...props}>
+    <Heading className={cn('font-bold text-4xl text-ellipsis', className)} {...props}>
       {children}
-    </h1>
+    </Heading>
   )
 }
