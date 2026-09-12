@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
  * `{{copy: ...}}` slots in openspec/changes/add-invite-hero-section/design.md.
  */
 const heroTitleLine = 'Chegou a hora da festa!'
-const heroSubtitle = '27/09/2026, 11h30 — o sertão convida para a festa!'
+const heroSubtitle = 'O cordel do Muri...'
 const buntingAlt = 'Varal de bandeirinhas coloridas de festa junina'
 
 const buntingVariants: Variants = {
