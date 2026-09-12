@@ -1,5 +1,5 @@
-import { InviteHero } from '@/components/invite/InviteHero'
 import { PageWrapper } from '@/components/layout/PageWrapper'
+import { InviteHero } from '@/pages/InvitePage/partials/InviteHero'
 
 /**
  * Public invite page, served at `/`.
