@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="straw-hat-002-title">
+  <title id="straw-hat-002-title">Chapéu de palha de São João</title>
+  <style>
+    .ink    { fill: var(--color-carved-black, #1C1410); }
+    .paper  { fill: var(--color-bone-white, #F4EEDD); }
+    .sertao { fill: var(--color-sertao-brown, #6B4226); }
+  </style>
+  <!-- silhouette carried over from straw_hat, untouched -->
+  <path class="ink" d="M 1.7 17.2
+    Q 12.5 21.8 22.3 16.9
+    Q 22.9 15.8 21.7 15.5
+    Q 12.2 18.5 2.6 15.9
+    Q 1.2 16.2 1.7 17.2
+    Z"/>
+  <path class="ink" d="M 16.9 13.9
+    Q 18.9 12.7 21.1 13.0
+    L 19.9 14.1
+    L 20.9 15.1
+    Q 18.7 15.0 17.0 15.4
+    Z"/>
+  <path class="ink" fill-rule="evenodd" d="M 5.7 16.9
+    Q 6.4 12.0 10.4 7.6
+    Q 11.5 6.5 12.9 7.9
+    Q 16.4 12.0 18.0 16.7
+    Z
+    M 6.9 14.05
+    L 16.6 14.6
+    L 16.45 15.95
+    L 6.7 15.25
+    Z"/>
+  <!-- gouge marks, crown: three, each following the local slope of the cone -->
+  <path class="paper" d="M 9.700 10.200 C 9.924 10.619 10.133 11.073 10.000 11.415 C 9.860 11.775 9.451 12.072 9.000 12.000 C 8.757 11.802 8.742 11.340 8.882 10.980 C 9.015 10.638 9.364 10.401 9.700 10.200 Z"/>
+  <path class="paper" d="M 11.700 9.000 C 11.402 9.369 11.111 9.776 11.178 10.137 C 11.248 10.517 11.594 10.886 12.050 10.900 C 12.326 10.751 12.428 10.300 12.358 9.920 C 12.291 9.559 11.992 9.260 11.700 9.000 Z"/>
+  <path class="paper" d="M 14.000 11.200 C 13.822 11.649 13.662 12.134 13.833 12.476 C 14.013 12.836 14.456 13.110 14.900 13.000 C 15.122 12.777 15.086 12.299 14.906 11.939 C 14.735 11.597 14.359 11.381 14.000 11.200 Z"/>
+  <!-- gouge marks, brim: two, lying along the curve of the narrow band -->
+  <path class="paper" d="M 7.610 17.830 C 7.807 18.239 8.039 18.654 8.360 18.721 C 8.698 18.791 9.126 18.600 9.300 18.180 C 9.276 17.871 8.941 17.616 8.603 17.546 C 8.282 17.479 7.929 17.651 7.610 17.830 Z"/>
+  <path class="paper" d="M 16.905 17.950 C 16.593 18.266 16.248 18.576 15.943 18.528 C 15.622 18.478 15.311 18.153 15.300 17.700 C 15.426 17.418 15.807 17.293 16.128 17.343 C 16.433 17.391 16.685 17.673 16.905 17.950 Z"/>
+</svg>
