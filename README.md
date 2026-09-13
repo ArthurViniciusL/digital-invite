@@ -19,19 +19,19 @@ sober tone.
 
 ## Stack
 
-| Layer                | Technology                                       |
-| --------------------- | ------------------------------------------------ |
-| Package manager        | Yarn                                             |
-| Build                | Vite 8                                           |
-| Framework            | React 19 + TypeScript 6 (`strict`)               |
-| Styling          | Tailwind CSS v4 (official Vite plugin)         |
-| Components          | shadcn/ui (Radix base, Nova preset)              |
-| Routing           | React Router v7                                  |
-| Forms          | React Hook Form + Zod (`@hookform/resolvers`)    |
-| Icons              | Lucide                                           |
-| Animation             | Framer Motion                                    |
-| Data and auth | Supabase (Postgres + Auth), consumed in the browser |
-| Quality            | ESLint (flat config, type-aware) + Prettier      |
+| Layer           | Technology                                          |
+| --------------- | --------------------------------------------------- |
+| Package manager | Yarn                                                |
+| Build           | Vite 8                                              |
+| Framework       | React 19 + TypeScript 6 (`strict`)                  |
+| Styling         | Tailwind CSS v4 (official Vite plugin)              |
+| Components      | shadcn/ui (Radix base, Nova preset)                 |
+| Routing         | React Router v7                                     |
+| Forms           | React Hook Form + Zod (`@hookform/resolvers`)       |
+| Icons           | Lucide                                              |
+| Animation       | Framer Motion                                       |
+| Data and auth   | Supabase (Postgres + Auth), consumed in the browser |
+| Quality         | ESLint (flat config, type-aware) + Prettier         |
 
 There is no dedicated backend. Data security is guaranteed by Row Level Security on Supabase's
 Postgres.
@@ -63,16 +63,16 @@ yarn dev
 
 ## Scripts
 
-| Script              | What it does                                 |
-| ------------------- | ----------------------------------------- |
-| `yarn dev`          | Development server               |
-| `yarn build`        | Project type-check and production build |
+| Script              | What it does                             |
+| ------------------- | ---------------------------------------- |
+| `yarn dev`          | Development server                       |
+| `yarn build`        | Project type-check and production build  |
 | `yarn preview`      | Serves the production build locally      |
-| `yarn lint`         | ESLint across the whole project                  |
-| `yarn lint:fix`     | ESLint with automatic fixes            |
-| `yarn typecheck`    | Type-check only            |
-| `yarn format`       | Prettier across the whole project                  |
-| `yarn format:check` | Checks formatting without changing files  |
+| `yarn lint`         | ESLint across the whole project          |
+| `yarn lint:fix`     | ESLint with automatic fixes              |
+| `yarn typecheck`    | Type-check only                          |
+| `yarn format`       | Prettier across the whole project        |
+| `yarn format:check` | Checks formatting without changing files |
 
 ## Design tokens
 

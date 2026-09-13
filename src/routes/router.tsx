@@ -1,9 +1,9 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom';
 
-import { AdminDashboardPage } from '@/pages/AdminDashboardPage'
-import { AdminLoginPage } from '@/pages/AdminLoginPage'
-import { InvitePage } from '@/pages/InvitePage'
-import { ProtectedRoute } from '@/routes/ProtectedRoute'
+import { AdminDashboardPage } from '@/pages/AdminDashboardPage';
+import { AdminLoginPage } from '@/pages/AdminLoginPage';
+import { InvitePage } from '@/pages/InvitePage';
+import { ProtectedRoute } from '@/routes/ProtectedRoute';
 
 /**
  * Application routes.
@@ -29,4 +29,4 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-])
+]);

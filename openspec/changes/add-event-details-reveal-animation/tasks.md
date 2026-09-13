@@ -13,7 +13,7 @@
 ## 2. Apply the reveal to the section's elements
 
 - [ ] 2.1 Convert the facts panel container to a `motion.div`, with `initial={reduceMotion ? false :
-      'hidden'}`, `whileInView="visible"`, `viewport={{ once: true }}`, and the panel's variants from
+    'hidden'}`, `whileInView="visible"`, `viewport={{ once: true }}`, and the panel's variants from
       1.2
 - [ ] 2.2 Convert the GPS call-to-action to an animated element (either `motion.a` directly, or the
       existing anchor wrapped in a `motion.div`, `dev`'s choice) with the same

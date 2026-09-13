@@ -22,6 +22,7 @@ job, not scoped here.
 ## Goals / Non-Goals
 
 **Goals:**
+
 - Give `dev` a composition precise enough to implement without further design decisions: what each
   of the 4 elements is, how they're arranged relative to each other, and which existing token/utility
   applies to each.
@@ -31,6 +32,7 @@ job, not scoped here.
   idea from `PROJECT.md` §5.1 with a concrete, reduced-motion-safe sequence.
 
 **Non-Goals:**
+
 - Any layout for `EventDetails` or `RsvpForm` — those are separate sections with their own future
   changes.
 - Per-guest personalization of any hero content (`PROJECT.md` §7 puts this out of scope entirely).
@@ -71,7 +73,7 @@ one vertical axis, in this stacking order (top to bottom):
 └─────────────────────────────────────────┘
 ```
 
-Rationale: `GUIDELINES.md` §4.6 names "Muricarliton" + "50" as *the* central typographic piece "in
+Rationale: `GUIDELINES.md` §4.6 names "Muricarliton" + "50" as _the_ central typographic piece "in
 cordel cover style" — cordel booklet covers conventionally carry a short title line above the main
 title and an illustrated scene around/below it, so building the whole section as one cover (rather
 than a hero banner with a floating illustration) is the literal reading of that requirement, not
@@ -95,8 +97,8 @@ subtitle is informational.
   under the black-ink centerpiece.
 - Alignment: centered, directly above the centerpiece panel.
 - Content placeholder: `{{copy: hero_title — cordel-style invitation phrase, ≤5 words, festive tone,
-  does not repeat the honoree's name or the word "convite" since the page context already makes
-  that clear}}`.
+does not repeat the honoree's name or the word "convite" since the page context already makes
+that clear}}`.
 
 ### Element 2 — "Muricarliton" + "50" centerpiece
 
@@ -127,9 +129,9 @@ One line beneath the centerpiece panel, `font-body` (Caveat), `carved-black`, si
 below the centerpiece in the type scale without competing with it.
 
 - Content placeholder: `{{copy: hero_subtitle — one line, cordel-verse tone, may reference
-  27/09/2026, 11h30, Alto da Serra Recepções, Cuité per PROJECT.md §2, but does not need to state
-  every fact since EventDetails covers them in full; final verse text is still pending per
-  PROJECT.md §2}}`.
+27/09/2026, 11h30, Alto da Serra Recepções, Cuité per PROJECT.md §2, but does not need to state
+every fact since EventDetails covers them in full; final verse text is still pending per
+PROJECT.md §2}}`.
 - Constrained to one line by content length (≤ ~60 characters is a safe target for the type scale
   described above), not by CSS truncation — the copy writer should write to that budget rather than
   the layout clipping an overflow.
@@ -138,16 +140,16 @@ below the centerpiece in the type scale without competing with it.
 
 Every image in the composition already exists in `public/assets/images/`; none is requested new.
 
-| Asset | Role | Placement |
-| --- | --- | --- |
-| `flags.png` | Festival bunting, framing device | Strung along the very top edge of the section, spanning its width |
-| `sun.svg` | Sertão sun, partial | Upper corner, largely behind/above the centerpiece panel, evoking a sun rising behind the cover |
-| `broom.svg` | Portrait accent | Leaning against the panel's left edge, grounding the composition |
-| `cactus_001.svg` | Slender upright accent | Standing at the panel's right edge, balancing `broom.svg` |
-| `straw_hat_002.svg` | Small ground prop | Resting near the base, beside `cactus_003.svg` |
-| `cactus_003.svg` | Ground anchor | Bottom center, behind/below the subtitle — already includes its own cracked-earth ground per its `<title>` ("Mandacaru florido no chão rachado do sertão"), so no separate ground texture is needed |
-| `cactus_002.svg` | Not used in this section | Reserved — see Decisions above |
-| `straw_hat.svg` | Not used in this section | Redundant with `straw_hat_002.svg` for this composition; leaving one unused avoids visual clutter inside one section |
+| Asset               | Role                             | Placement                                                                                                                                                                                           |
+| ------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `flags.png`         | Festival bunting, framing device | Strung along the very top edge of the section, spanning its width                                                                                                                                   |
+| `sun.svg`           | Sertão sun, partial              | Upper corner, largely behind/above the centerpiece panel, evoking a sun rising behind the cover                                                                                                     |
+| `broom.svg`         | Portrait accent                  | Leaning against the panel's left edge, grounding the composition                                                                                                                                    |
+| `cactus_001.svg`    | Slender upright accent           | Standing at the panel's right edge, balancing `broom.svg`                                                                                                                                           |
+| `straw_hat_002.svg` | Small ground prop                | Resting near the base, beside `cactus_003.svg`                                                                                                                                                      |
+| `cactus_003.svg`    | Ground anchor                    | Bottom center, behind/below the subtitle — already includes its own cracked-earth ground per its `<title>` ("Mandacaru florido no chão rachado do sertão"), so no separate ground texture is needed |
+| `cactus_002.svg`    | Not used in this section         | Reserved — see Decisions above                                                                                                                                                                      |
+| `straw_hat.svg`     | Not used in this section         | Redundant with `straw_hat_002.svg` for this composition; leaving one unused avoids visual clutter inside one section                                                                                |
 
 Each `.svg` keeps its own intrinsic `viewBox` scaling (per `GUIDELINES.md` §6, none of them declare
 a fixed `width`/`height`); sizing is controlled by the consuming CSS, not the asset. `flags.png` is

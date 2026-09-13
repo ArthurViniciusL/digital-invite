@@ -447,7 +447,7 @@ contract applies in `RsvpForm`, and `ModalForm` needs no motion handling of its 
   `true`, the Lottie player is not rendered at all. A multi-second autoplaying animation is precisely
   what the preference asks a page to avoid, and this project's contract has never carved out an
   exception for a particular animation technology. The feedback text renders in both cases — only the
-  confetti is conditional. Note this is the *second* gate on the confetti and they are independent:
+  confetti is conditional. Note this is the _second_ gate on the confetti and they are independent:
   `justConfirmed` decides whether this is a celebration at all, `reduceMotion` decides whether a
   celebration may animate.
 - **The section's reserved `min-h-48 sm:min-h-64` applies in every motion mode and on every path**,

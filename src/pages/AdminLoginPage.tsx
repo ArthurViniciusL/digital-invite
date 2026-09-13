@@ -1,4 +1,4 @@
-import { PageWrapper } from '@/components/layout/PageWrapper'
+import { PageWrapper } from '@/components/layout/PageWrapper';
 
 /**
  * Administrator sign-in page, served at `/admin/login`.
@@ -6,5 +6,5 @@ import { PageWrapper } from '@/components/layout/PageWrapper'
  * TODO: render `LoginForm` once it exists.
  */
 export function AdminLoginPage() {
-  return <PageWrapper>Admin Login Page — under construction</PageWrapper>
+  return <PageWrapper>Admin Login Page — under construction</PageWrapper>;
 }

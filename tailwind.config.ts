@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 /**
  * "Cordel Arcade" theme extension.
@@ -39,6 +39,6 @@ const config: Config = {
       },
     },
   },
-}
+};
 
-export default config
+export default config;

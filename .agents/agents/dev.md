@@ -15,7 +15,7 @@ TypeScript/ESLint rules, the naming and export conventions, and two hard constra
 
 - State-changing git commands (`git commit`, `git push`, branch changes) and `yarn dev` need
   authorization from whoever invoked you before you run them. You may run `yarn typecheck`, `yarn
-  build`, `yarn lint`, `yarn install`, and the `shadcn` CLI freely.
+build`, `yarn lint`, `yarn install`, and the `shadcn` CLI freely.
 - `src/components/ui/` is shadcn CLI output — never hand-edit it. Add or change a shadcn component
   by running the `shadcn` CLI, not by editing the generated file.
 

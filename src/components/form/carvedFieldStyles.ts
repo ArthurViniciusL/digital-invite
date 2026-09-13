@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils';
 
 /**
  * Every `focus-visible:`, `aria-invalid:` and `dark:` entry below exists to
@@ -15,18 +15,18 @@ export const carvedInputClasses = [
   'aria-invalid:border-carved-black aria-invalid:ring-0',
   'dark:bg-bone-white dark:aria-invalid:border-carved-black',
   'group-focus-within/field:border-carved-black',
-].join(' ')
+].join(' ');
 
 export const carvedLabelClasses = [
   'font-body text-lg text-sertao-brown',
   'group-focus-within/field:text-carved-black data-[error=true]:text-carved-black',
-].join(' ')
+].join(' ');
 
-export const carvedHelperClasses = 'font-body text-base text-sertao-brown'
+export const carvedHelperClasses = 'font-body text-base text-sertao-brown';
 
-export const carvedFieldItemClasses = 'group/field grid gap-1.5 text-left'
+export const carvedFieldItemClasses = 'group/field grid gap-1.5 text-left';
 
 /** The rule is cut twice when the field is invalid, 3px below its own rule. */
 export function carvedRuleWrapperClasses(invalid: boolean) {
-  return cn('mt-0.5', invalid && 'border-b-2 border-carved-black pb-[3px]')
+  return cn('mt-0.5', invalid && 'border-b-2 border-carved-black pb-[3px]');
 }

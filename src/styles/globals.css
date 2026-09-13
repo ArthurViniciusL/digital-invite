@@ -24,7 +24,7 @@
  * The Tailwind theme extension (brand colours, font families, carved radii)
  * lives in `tailwind.config.ts` so the design tokens sit in a single typed file.
  */
- 
+
 @config "../../tailwind.config.ts";
 
 @custom-variant dark (&:is(.dark *));
@@ -46,10 +46,10 @@
  * ========================================================================== 
  */
 
- * {
+* {
   scroll-behavior: smooth;
   scrollbar-width: none;
- }
+}
 
 :root {
   /* Brand palette */
@@ -102,7 +102,7 @@
  * the `dark:` variants that ship inside shadcn components from rendering with
  * missing values, should the `.dark` class ever be applied.
  */
- 
+
 .dark {
   --background: var(--color-carved-black);
   --foreground: var(--color-bone-white);

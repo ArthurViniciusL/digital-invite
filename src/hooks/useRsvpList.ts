@@ -6,5 +6,9 @@
  * authenticated reads, so this hook is only ever called from a protected route.
  */
 export function useRsvpList() {
-  return { rsvpList: [], isLoading: false, error: null }
+  return {
+    rsvpList: [],
+    isLoading: false,
+    error: null,
+  };
 }

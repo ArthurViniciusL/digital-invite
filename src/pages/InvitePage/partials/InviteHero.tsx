@@ -1,30 +1,39 @@
-import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import { Title } from '@/components/typograph/Title'
-import { cn } from '@/lib/utils'
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import { Title } from '@/components/typograph/Title';
+import { cn } from '@/lib/utils';
 
-/**
- * All copy below is draft placeholder text, not final wording — see the
- * `{{copy: ...}}` slots in openspec/changes/add-invite-hero-section/design.md.
- */
-const heroTitleLine = 'Chegou a hora da festa!'
-const buntingAlt = 'Varal de bandeirinhas coloridas de festa junina'
+const heroTitleLine = 'Chegou a hora da festa!';
+const buntingAlt = 'Varal de bandeirinhas coloridas de festa junina';
 
 const buntingVariants: Variants = {
-  hidden: { y: -32, rotate: -2, opacity: 0 },
-  visible: { y: 0, rotate: 0, opacity: 1, transition: { duration: 0.6, ease: 'easeOut' } },
-}
+  hidden: {
+    y: -32,
+    rotate: -2,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    rotate: 0,
+    opacity: 1,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+};
 
 const panelVariants: Variants = {
   hidden: { scale: 1.08, opacity: 0 },
   visible: {
     scale: 1,
     opacity: 1,
-    transition: { duration: 0.5, delay: 0.6, ease: [0.34, 1.56, 0.64, 1] },
+    transition: {
+      duration: 0.5,
+      delay: 0.6,
+      ease: [0.34, 1.56, 0.64, 1],
+    },
   },
-}
+};
 
 interface MotionStageProps {
-  reduceMotion: boolean
+  reduceMotion: boolean;
 }
 
 function HeroBunting({ reduceMotion }: MotionStageProps) {
@@ -37,7 +46,7 @@ function HeroBunting({ reduceMotion }: MotionStageProps) {
     >
       <img src="/assets/images/flag_001.svg" alt={buntingAlt} className="w-full" />
     </motion.div>
-  )
+  );
 }
 
 function hoverUpAnimation() {
@@ -66,10 +75,7 @@ function HeroCenterpiece({ reduceMotion }: MotionStageProps) {
         src="/assets/images/cactus_003.svg"
         alt=""
         aria-hidden="true"
-        className={cn(
-          'absolute -right-4 bottom-0 h-20 sm:-right-4 sm:h-30',
-          hoverUpAnimation(),
-        )}
+        className={cn('absolute -right-4 bottom-0 h-20 sm:-right-4 sm:h-30', hoverUpAnimation())}
       />
       <motion.div
         className={cn(
@@ -80,9 +86,7 @@ function HeroCenterpiece({ reduceMotion }: MotionStageProps) {
         animate="visible"
         variants={panelVariants}
       >
-        <Title className="text-5xl leading-none text-carved-black sm:text-7xl">
-          Muricarliton
-        </Title>
+        <Title className="text-5xl leading-none text-carved-black sm:text-7xl">Muricarliton</Title>
         <div
           className={cn(
             'carved-3 absolute -bottom-5 -right-5 flex h-14 w-14 items-center justify-center',
@@ -95,11 +99,11 @@ function HeroCenterpiece({ reduceMotion }: MotionStageProps) {
         </div>
       </motion.div>
     </div>
-  )
+  );
 }
 
 export function InviteHero() {
-  const reduceMotion = useReducedMotion() ?? false
+  const reduceMotion = useReducedMotion() ?? false;
 
   return (
     <section className="flex w-full flex-col items-center gap-6 text-center">
@@ -107,5 +111,5 @@ export function InviteHero() {
       <p className="font-body text-lg text-sertao-brown sm:text-xl">{heroTitleLine}</p>
       <HeroCenterpiece reduceMotion={reduceMotion} />
     </section>
-  )
+  );
 }

@@ -33,7 +33,7 @@
       `open`, `onOpenChange` and `onConfirm` props and holding no state of its own, built on shadcn's
       `Dialog` primitives
 - [x] 3.2 Give `DialogContent` the `.carved-1` utility plus the `border-4 border-carved-black
-    bg-bone-white` treatment established by `InviteHero`/`EventDetails`'s panels
+  bg-bone-white` treatment established by `InviteHero`/`EventDetails`'s panels
 - [x] 3.3 Render the fixed title "Cadastro do convidado" via `DialogTitle` (`font-title`) and the
       fixed body content "Em breve!" (`font-body`)
 - [x] 3.4 Render a "Confirmar" `Button` (`variant="xilo"`, fixed label, not a placeholder) wired to

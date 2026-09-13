@@ -1,4 +1,4 @@
-import { PageWrapper } from '@/components/layout/PageWrapper'
+import { PageWrapper } from '@/components/layout/PageWrapper';
 
 /**
  * Administrator dashboard, served at `/admin` behind `ProtectedRoute`.
@@ -6,5 +6,5 @@ import { PageWrapper } from '@/components/layout/PageWrapper'
  * TODO: compose `RsvpSummaryCard` and `RsvpTable` once they exist.
  */
 export function AdminDashboardPage() {
-  return <PageWrapper>Admin Dashboard Page — under construction</PageWrapper>
+  return <PageWrapper>Admin Dashboard Page — under construction</PageWrapper>;
 }

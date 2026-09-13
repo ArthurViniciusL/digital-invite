@@ -1,8 +1,8 @@
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { X } from 'lucide-react'
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { X } from 'lucide-react';
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogClose,
@@ -10,18 +10,23 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Form } from '@/components/ui/form'
-import { cn } from '@/lib/utils'
-import { rsvpSchema, type RsvpFormData, type RsvpFormInput } from '@/lib/schemas/rsvpSchema'
-import { RsvpFormFields } from './RsvpFormFields'
+} from '@/components/ui/dialog';
+import { Form } from '@/components/ui/form';
+import { cn } from '@/lib/utils';
+import { rsvpSchema, type RsvpFormData, type RsvpFormInput } from '@/lib/schemas/rsvpSchema';
+import { RsvpFormFields } from './RsvpFormFields';
 
-const modalTitle = 'Convidado'
+const modalTitle = 'Convidado';
 // const modalIntro = '{{copy: rsvp_modal_intro}}'
-const confirmButtonLabel = 'Confirmar'
-const closeButtonLabel = 'Fechar'
+const confirmButtonLabel = 'Confirmar';
+const closeButtonLabel = 'Fechar';
 
-const emptyForm: RsvpFormInput = { name: '', whatsapp: '', email: '', guestCount: 1 }
+const emptyForm: RsvpFormInput = {
+  name: '',
+  whatsapp: '',
+  email: '',
+  guestCount: 1,
+};
 
 function CloseModalButton() {
   return (
@@ -35,20 +40,20 @@ function CloseModalButton() {
         <X aria-hidden />
       </Button>
     </DialogClose>
-  )
+  );
 }
 
 interface ModalFormProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onConfirm: (data: RsvpFormData) => void
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onConfirm: (data: RsvpFormData) => void;
 }
 
 export function ModalForm({ open, onOpenChange, onConfirm }: ModalFormProps) {
   const form = useForm<RsvpFormInput, unknown, RsvpFormData>({
     resolver: zodResolver(rsvpSchema),
     defaultValues: emptyForm,
-  })
+  });
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -70,7 +75,7 @@ export function ModalForm({ open, onOpenChange, onConfirm }: ModalFormProps) {
         <Form {...form}>
           <form
             onSubmit={(event) => {
-              void form.handleSubmit(onConfirm)(event)
+              void form.handleSubmit(onConfirm)(event);
             }}
             className="space-y-6"
           >
@@ -88,5 +93,5 @@ export function ModalForm({ open, onOpenChange, onConfirm }: ModalFormProps) {
         </Form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
