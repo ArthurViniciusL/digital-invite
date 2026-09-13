@@ -8,13 +8,13 @@ export function RsvpFormFields() {
     <div className="space-y-5 text-left">
       <CarvedTextField<RsvpFormData>
         name="name"
-        label="Seu nome:"
+        label="Seu nome: *"
         placeholder="Nome e Sobrenome"
         autoComplete="name"
       />
       <CarvedTextField<RsvpFormData>
         name="whatsapp"
-        label="Whatsapp:"
+        label="Whatsapp: *"
         placeholder="(xx) x xxxx-xxxx"
         inputMode="tel"
         autoComplete="tel"
@@ -23,7 +23,7 @@ export function RsvpFormFields() {
       />
       <CarvedTextField<RsvpFormData>
         name="email"
-        label="E-mail:"
+        label="E-mail: *"
         placeholder="@gmail.com"
         inputMode="email"
         autoComplete="email"
