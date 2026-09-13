@@ -46,6 +46,11 @@
  * ========================================================================== 
  */
 
+ * {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+ }
+
 :root {
   /* Brand palette */
   --color-carved-black: #1c1410;
