@@ -1,4 +1,3 @@
-import { CalendarPlus } from 'lucide-react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 
 import { Button } from '@/components/ui/button';
@@ -6,7 +5,7 @@ import { DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { BIRTHDAY_EVENT, buildGoogleCalendarUrl } from '@/lib/calendar/googleCalendarUrl';
 
-const calendarMessage = 'Adicionar lembrete no calendário google?';
+const calendarMessage = 'Adicionar lembrete na  agenda do Google?';
 const acceptButtonLabel = 'SIM';
 const declineButtonLabel = 'NÃO';
 const newTabHint = 'Abre o Google Agenda em uma nova aba';
@@ -43,7 +42,7 @@ export function CalendarStep({ onClose }: CalendarStepProps) {
       variants={stepVariants}
       className="flex flex-col items-center gap-6 text-center"
     >
-      <CalendarPlus aria-hidden="true" className="h-10 w-10 shrink-0 text-sertao-brown" />
+      <img src="https://play-lh.googleusercontent.com/vEoqLbT_QkYcEaawWBRc22N6i98OUtOUpM1LmKdVs_xx7lCsUyFfV0ZiqoUXjMijUteiBhhN4K5MpoF96FRNOg=w240-h480" alt="Calendar" className="rounded-2xl h-12 w-12" />
 
       <DialogDescription
         className={cn('font-body text-xl text-balance text-carved-black sm:text-2xl')}
@@ -52,6 +51,9 @@ export function CalendarStep({ onClose }: CalendarStepProps) {
       </DialogDescription>
 
       <DialogFooter className="m-0 flex w-full flex-row justify-center gap-3 border-0 bg-transparent p-0">
+        <Button variant="xilo" type="button" onClick={onClose} className={answerButtonClassName}>
+          {declineButtonLabel}
+        </Button>
         <Button
           variant="xilo"
           type="button"
@@ -60,9 +62,6 @@ export function CalendarStep({ onClose }: CalendarStepProps) {
         >
           {acceptButtonLabel}
           <span className="sr-only">{newTabHint}</span>
-        </Button>
-        <Button variant="xilo" type="button" onClick={onClose} className={answerButtonClassName}>
-          {declineButtonLabel}
         </Button>
       </DialogFooter>
     </motion.div>
