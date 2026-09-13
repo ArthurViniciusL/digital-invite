@@ -18,7 +18,7 @@
 ## 3. Facts panel
 
 - [x] 3.1 Implement the `.carved-2` facts panel container (heavy `border-4 border-carved-black
-      bg-bone-white`, matching the hero panel's border treatment) and verify it does not share a
+    bg-bone-white`, matching the hero panel's border treatment) and verify it does not share a
       `.carved-*` class with `InviteHero`'s `.carved-1` panel immediately above it
 - [x] 3.2 Implement the date fact row: `Calendar` icon (`aria-hidden="true"`) plus the fixed label
       "Data" and fixed value "27 de setembro de 2026"

@@ -27,4 +27,4 @@ unstated assumption.
    file, a plan, a spec) before writing any code or files, and confirm it matches what they meant.
 
 Stay in whatever communication style is already active for the session (e.g. caveman mode) while
-grilling — this skill changes the *process*, not the tone.
+grilling — this skill changes the _process_, not the tone.

@@ -1,7 +1,7 @@
-import { CarvedStepperField } from '@/components/form/CarvedStepperField'
-import { CarvedTextField } from '@/components/form/CarvedTextField'
-import { formatWhatsappNumber } from '@/lib/formatters/whatsappNumber'
-import { type RsvpFormData } from '@/lib/schemas/rsvpSchema'
+import { CarvedStepperField } from '@/components/form/CarvedStepperField';
+import { CarvedTextField } from '@/components/form/CarvedTextField';
+import { formatWhatsappNumber } from '@/lib/formatters/whatsappNumber';
+import { type RsvpFormData } from '@/lib/schemas/rsvpSchema';
 
 export function RsvpFormFields() {
   return (
@@ -9,7 +9,7 @@ export function RsvpFormFields() {
       <CarvedTextField<RsvpFormData>
         name="name"
         label="Seu nome:"
-        placeholder='Nome e Sobrenome'
+        placeholder="Nome e Sobrenome"
         autoComplete="name"
       />
       <CarvedTextField<RsvpFormData>
@@ -24,14 +24,11 @@ export function RsvpFormFields() {
       <CarvedTextField<RsvpFormData>
         name="email"
         label="E-mail:"
-        placeholder='@gmail.com'
+        placeholder="@gmail.com"
         inputMode="email"
         autoComplete="email"
       />
-      <CarvedStepperField
-        name="guestCount"
-        label="Quantidade de convites"
-      />
+      <CarvedStepperField name="guestCount" label="Quantidade de convites" />
     </div>
-  )
+  );
 }

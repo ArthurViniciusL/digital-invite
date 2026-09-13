@@ -27,6 +27,7 @@ heading rather than a second `<h1>` — a page should have exactly one.
 ## Goals / Non-Goals
 
 **Goals:**
+
 - Give `dev` a composition precise enough to implement without further design decisions: what each
   of the section's 6 elements is, how they're arranged, and which existing token/utility/icon
   applies to each.
@@ -37,6 +38,7 @@ heading rather than a second `<h1>` — a page should have exactly one.
   page's heading hierarchy correct without inventing a parallel heading primitive.
 
 **Non-Goals:**
+
 - Any layout for `RsvpForm` — a separate section with its own future change.
 - Per-guest personalization of any content (`PROJECT.md` §7 puts this out of scope entirely).
 - Requesting, drawing, or modifying any `.svg`/`.png` asset — this section carries no illustration.
@@ -90,7 +92,7 @@ centerpiece text — a secondary heading introducing the facts, not a second dis
   in the `text-2xl`/`text-3xl` range rather than the hero's `text-5xl`/`text-7xl` — exact values left
   to `dev`'s judgment against the hero's proportions), `carved-black`, centered above the panel.
 - Content placeholder: `{{copy: event_details_heading — 1-2 words, section label introducing the
-  event facts, Cordel Arcade tone}}`. "Sobre" is an illustrative example only, not the final string.
+event facts, Cordel Arcade tone}}`. "Sobre" is an illustrative example only, not the final string.
 
 ### Elements 2-4 — date, time, and venue facts
 
@@ -99,11 +101,11 @@ bg-bone-white` panel, matching the hero panel's border treatment but a different
 so it doesn't repeat the hero's `.carved-1` silhouette directly below it). Each row pairs a Lucide
 icon with a label and a value — read as a fact, not a sentence:
 
-| Fact | Icon | Label (fixed) | Value (fixed) |
-| --- | --- | --- | --- |
-| Date | `Calendar` | "Data" | "27 de setembro de 2026" |
-| Time | `Clock` | "Horário" | "11h30" |
-| Venue | `MapPin` | "Local" | "Alto da Serra Recepções, Cuité" |
+| Fact  | Icon       | Label (fixed) | Value (fixed)                    |
+| ----- | ---------- | ------------- | -------------------------------- |
+| Date  | `Calendar` | "Data"        | "27 de setembro de 2026"         |
+| Time  | `Clock`    | "Horário"     | "11h30"                          |
+| Venue | `MapPin`   | "Local"       | "Alto da Serra Recepções, Cuité" |
 
 All six strings (three labels, three values) are fixed content, not copy placeholders — `PROJECT.md`
 §2 already states them verbatim or by direct translation, and none require tone or word-choice
@@ -126,7 +128,7 @@ the CTA's icon don't repeat inside one section). Required attributes: `target="_
 existing abstraction wraps it; a plain inline anchor is enough for one link.
 
 - Content placeholder: `{{copy: gps_link_label — 2-4 words, Portuguese, invites tapping to open the
-  map, e.g. the tone of "Ver no mapa"}}`.
+map, e.g. the tone of "Ver no mapa"}}`.
 - Href is a fixed constant, not a placeholder: `https://maps.app.goo.gl/xxoBYQV8dQhPRaQi8`.
 
 **Alternative considered**: wrapping the venue fact's own text (element 4) in the anchor instead of
@@ -142,8 +144,8 @@ One short passage after the panel, `font-body` (Caveat), `carved-black`, sized b
 subtitle and body text — a warm sign-off, not another fact.
 
 - Content placeholder: `{{copy: event_closing_message — 1-2 short sentences, warm, Cordel Arcade
-  tone, doesn't repeat the date/time/venue facts already stated above, may reference the RSVP
-  deadline (26/09/2026) since that fact isn't stated elsewhere in this section}}`.
+tone, doesn't repeat the date/time/venue facts already stated above, may reference the RSVP
+deadline (26/09/2026) since that fact isn't stated elsewhere in this section}}`.
 
 ### No entrance animation
 

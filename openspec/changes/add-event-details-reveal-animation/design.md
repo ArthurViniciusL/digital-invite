@@ -21,6 +21,7 @@ unconditionally on mount, as `InviteHero` does today).
 ## Goals / Non-Goals
 
 **Goals:**
+
 - Specify the animation mechanism precisely enough that `dev` doesn't have to choose it:
   `whileInView` with `viewport={{ once: true }}`, applied to `EventDetails.tsx`'s existing elements.
 - Cover both required cases (already-in-viewport-at-load, and scroll-into-view) through that single
@@ -32,6 +33,7 @@ unconditionally on mount, as `InviteHero` does today).
   independently-timed animations that draw attention to themselves individually.
 
 **Non-Goals:**
+
 - Any change to `InviteHero.tsx`'s own mount-triggered sequence.
 - A shared, reusable "reveal on scroll" hook, wrapper component, or utility for other sections to
   consume later — this change hard-codes the behavior inside `EventDetails.tsx` only.
@@ -60,12 +62,12 @@ is not open for `dev` to substitute (e.g. no `react-intersection-observer` or sc
 No new wrapper `<section>` or extra DOM node is required to add motion — the existing structural
 elements from `add-event-details-section` become the animated targets:
 
-| Element | Current tag | Becomes |
-| --- | --- | --- |
-| Facts panel (`.carved-2` container) | plain `<div>` | `motion.div` |
+| Element                                 | Current tag                 | Becomes                                                                                                                                                                        |
+| --------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Facts panel (`.carved-2` container)     | plain `<div>`               | `motion.div`                                                                                                                                                                   |
 | GPS call-to-action (`.carved-3` anchor) | plain `<a>` (via `cn(...)`) | Framer Motion supports animating a custom component via `motion.a`, or the anchor can be wrapped in a `motion.div`; `dev`'s choice, since both satisfy the same visible reveal |
-| Closing message (`<p>`) | plain `<p>` | `motion.p` |
-| Section heading (`<Title as="h2">`) | `Title` component | left un-animated (see below) |
+| Closing message (`<p>`)                 | plain `<p>`                 | `motion.p`                                                                                                                                                                     |
+| Section heading (`<Title as="h2">`)     | `Title` component           | left un-animated (see below)                                                                                                                                                   |
 
 The section heading is deliberately excluded from the motion treatment: animating a heading that
 sits at the very top of `EventDetails`, immediately after `InviteHero`'s own already-settled
@@ -93,7 +95,7 @@ project's existing `panelVariants`/`subtitleVariants` patterns in `InviteHero.ts
 with a slight upward slide plus fade (e.g. `y: 24, opacity: 0` → `y: 0, opacity: 1`), the CTA and
 closing message follow with a smaller slide plus fade, shortly after the panel. This is illustrative,
 not prescriptive — `dev` may reuse `InviteHero.tsx`'s exact easing curve or choose a comparable one,
-as long as no gradient, glow, or non-opacity-driven fade is introduced and the section's *settled*
+as long as no gradient, glow, or non-opacity-driven fade is introduced and the section's _settled_
 state carries no non-1 opacity, consistent with `GUIDELINES.md` §4.5's ban on transparency as a
 static effect (a mid-transition opacity value is motion, not a static translucent surface, and is
 not what that rule forbids).

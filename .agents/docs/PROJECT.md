@@ -37,35 +37,43 @@ Este projeto é 100% digital — não há necessidade de considerar versões imp
 ## 4. Design system
 
 ### 4.1 Conceito visual
+
 "**Cordel Arcade**": fusão entre xilogravura nordestina tradicional (traço entalhado, textura granulada, hachuras para sombra) e estética retrô de videogames antigos (referência Atari) — silhuetas mais geométricas e "blocadas", sem adotar cores vibrantes de videogame. Tom: caloroso e festivo, mas sóbrio, sem infantilização.
 
 ### 4.2 Paleta de cores
-| Cor | Uso | 
-| --- | --- |
-| **Preto Entalhe** (#1C1410) | Cor principal — traço, ilustrações, texto de destaque |
-| **Branco Osso** (#F4EEDD) | Cor principal — fundo, respiro, texto sobre fundo escuro |
+
+| Cor                         | Uso                                                                            |
+| --------------------------- | ------------------------------------------------------------------------------ |
+| **Preto Entalhe** (#1C1410) | Cor principal — traço, ilustrações, texto de destaque                          |
+| **Branco Osso** (#F4EEDD)   | Cor principal — fundo, respiro, texto sobre fundo escuro                       |
 | **Marrom Sertão** (#6B4226) | Cor complementar — detalhes sutis, assets, fontes secundárias, hover de botões |
 
 > Observação: os valores HEX acima vêm de um guia de estilo anterior (paleta craft/bege) e precisam ser revalidados/ajustados pelo designer para a nova direção "Branco Osso + Preto Entalhe como base, Marrom Sertão como apoio", sem cor de destaque vibrante adicional.
 
 ### 4.3 Tipografia
+
 - **Títulos**: Xilosa
 - **Textos comuns**: Caveat
 
 ### 4.4 Contornos e formas
+
 Uso de `border-radius` com múltiplos raios (cantos individuais assimétricos) para simular entalhe de xilogravura — formas com "barrigas" e cantos ligeiramente tortos. Exemplo de referência:
+
 ```css
 border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
 ```
+
 Aplicar esse tratamento em cards, botões e molduras de imagem, com variação sutil entre elementos para reforçar a sensação de entalhe manual (evitar radius uniforme/perfeitamente simétrico).
 
 ### 4.5 Regras de traço e textura (herdadas da xilogravura tradicional)
+
 - Linhas grossas, levemente irregulares — evitar vetores perfeitamente lisos.
 - Sombra sempre por hachura (linhas paralelas/cruzadas) — nunca gradiente ou drop shadow suave.
 - Textura granulada sutil de papel/impressão pode ser usada como textura de fundo.
 - Evitar: gradientes, glow, brilho, transparências, cores vibrantes/saturadas fora da paleta definida.
 
 ### 4.6 Iconografia/temas disponíveis (repertório visual)
+
 - Sertão: mandacaru, cactos, sol estilizado, terra rachada
 - Flora estilizada
 - Elementos religiosos populares (ex-votos) — usar com discrição
@@ -77,6 +85,7 @@ Aplicar esse tratamento em cards, botões e molduras de imagem, com variação s
 ## 5. Funcionalidades / Escopo
 
 ### 5.1 Página pública do convite
+
 - Rota pública, acessível via link único (mesmo link enviado a todos os convidados — não há personalização por convidado).
 - Exibição das informações do evento (nome, "50 anos", data, horário, local).
 - Elemento de interatividade (a definir em conjunto com o designer — ex.: abertura animada estilo "abrir folheto de cordel", uso de Framer Motion para transições).
@@ -90,6 +99,7 @@ Aplicar esse tratamento em cards, botões e molduras de imagem, com variação s
 - RSVP aceito até 26/09/2026 (a UI pode indicar esse prazo, mas não é estritamente necessário bloquear envios após a data — validar com o time se deve haver bloqueio).
 
 ### 5.2 Dashboard administrativo
+
 - Rota protegida, acessível apenas mediante login.
 - **Autenticação**: e-mail + senha, com token JWT (via Supabase Auth). Um único usuário administrador (o organizador) é suficiente — não há necessidade de múltiplos perfis/papéis.
 - Exibe:
@@ -100,16 +110,18 @@ Aplicar esse tratamento em cards, botões e molduras de imagem, com variação s
 ## 6. Modelagem de dados (Supabase) — proposta inicial
 
 **Tabela `rsvp`**
-| Campo | Tipo | Observação |
-| --- | --- | --- |
-| `id` | uuid (PK) | gerado automaticamente |
-| `nome` | text | obrigatório |
-| `email` | text | obrigatório |
-| `number_of_persons` | integer | obrigatório |
-| `status` | text/enum | ex.: `confirmado` (definir se haverá outros status, como "cancelado") |
-| `created_at` | timestamptz | default now() |
+
+| Campo               | Tipo        | Observação                                                            |
+| ------------------- | ----------- | --------------------------------------------------------------------- |
+| `id`                | uuid (PK)   | gerado automaticamente                                                |
+| `nome`              | text        | obrigatório                                                           |
+| `email`             | text        | obrigatório                                                           |
+| `number_of_persons` | integer     | obrigatório                                                           |
+| `status`            | text/enum   | ex.: `confirmado` (definir se haverá outros status, como "cancelado") |
+| `created_at`        | timestamptz | default now()                                                         |
 
 **Regras de acesso (RLS)**:
+
 - Inserção (`INSERT`) na tabela `rsvp`: pública (anon key), sem necessidade de autenticação — é o formulário do convite.
 - Leitura (`SELECT`) na tabela `rsvp`: restrita a usuários autenticados (apenas o admin, via dashboard).
 - Autenticação do admin: usuário único criado no Supabase Auth (e-mail + senha).

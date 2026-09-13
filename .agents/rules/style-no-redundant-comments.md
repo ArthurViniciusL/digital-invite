@@ -11,7 +11,7 @@ Name functions, variables, and modules declaratively enough that they don't need
 restating what they do. This supersedes any older convention requiring a JSDoc block at the top
 of every module — that convention is retired in this project.
 
-The one exception is a genuinely non-obvious *why*: a workaround for a specific bug, a hidden
+The one exception is a genuinely non-obvious _why_: a workaround for a specific bug, a hidden
 constraint, or a business rule that the code alone can't convey. Write that comment only when
 removing it would leave a future reader confused, and keep it to the why, never the what.
 

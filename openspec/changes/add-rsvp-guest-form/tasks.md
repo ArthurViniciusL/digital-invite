@@ -66,7 +66,7 @@
 
 - [x] 4.1 Create the new `src/components/form/` directory — these two primitives are deliberately
       **not** under `InvitePage/partials/`, because they are the reference `src/components/admin/
-      LoginForm.tsx` will consume later
+    LoginForm.tsx` will consume later
 - [x] 4.2 Add `CarvedTextField.tsx`: label + ruled-line input + error message, built on the generated
       `Input`/`Label`/`Form*` primitives, with a local `interface CarvedTextFieldProps`, a named
       export, and props for label, field name, placeholder, `inputMode`, `autoComplete`, `maxLength`

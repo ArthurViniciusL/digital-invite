@@ -7,5 +7,5 @@
  * consumers can be written against the final shape.
  */
 export function useSession() {
-  return { session: null, isLoading: false }
+  return { session: null, isLoading: false };
 }

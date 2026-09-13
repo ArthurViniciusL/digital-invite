@@ -1,22 +1,27 @@
-import js from '@eslint/js'
-import prettierConfig from 'eslint-config-prettier'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
+import js from '@eslint/js';
+import prettierConfig from 'eslint-config-prettier';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 /**
  * ESLint configuration for the Digital Invite project.
  *
  * The rule set is tuned for Clean Code: descriptive names, small single-purpose
  * functions, no implicit or explicit `any`, and exhaustive React hook
- * dependencies. Formatting is delegated entirely to Prettier, so
- * `eslint-config-prettier` is applied last to switch off every stylistic rule
- * that would otherwise conflict with it.
+ * dependencies. Formatting is delegated to Prettier, so `eslint-config-prettier`
+ * switches off the stylistic rules that would otherwise conflict with it. The
+ * one deliberate exception is the object line-break block at the end of this
+ * file: Prettier accepts both a single-line and a multi-line object, and the
+ * project wants the multi-line form from three members up. That block is placed
+ * after `eslint-config-prettier` so it is not switched off again.
  */
 export default tseslint.config(
   {
-    ignores: ['dist', 'node_modules', 'src/components/ui'],
+    // `.agents` holds vendored skill assets, not app source, and its templates
+    // are outside the type-checked graph the TS rules need.
+    ignores: ['dist', 'node_modules', 'src/components/ui', '.agents'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -48,7 +53,8 @@ export default tseslint.config(
           patterns: [
             {
               group: ['../../*', '../../**'],
-              message: 'Use the `@/` alias instead of a parent-relative import two or more levels up.',
+              message:
+                'Use the `@/` alias instead of a parent-relative import two or more levels up.',
             },
           ],
         },
@@ -94,4 +100,19 @@ export default tseslint.config(
     ...tseslint.configs.disableTypeChecked,
   },
   prettierConfig,
-)
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      // Readability: an object with three or more members is spread over lines.
+      // Only `ObjectExpression` is covered: Prettier keeps a newline that already
+      // follows `{` in an object literal, but always collapses an import list, a
+      // destructuring pattern or an array back onto one line, so covering those
+      // would leave `yarn format` and `yarn lint --fix` undoing each other.
+      'object-curly-newline': [
+        'error',
+        { ObjectExpression: { minProperties: 3, multiline: true, consistent: true } },
+      ],
+      'object-property-newline': ['error', { allowAllPropertiesOnSameLine: true }],
+    },
+  },
+);

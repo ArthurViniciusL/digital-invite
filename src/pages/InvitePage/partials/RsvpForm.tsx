@@ -1,29 +1,29 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import { LottieLight } from 'lottie-react'
-import { Button } from '@/components/ui/button'
-import { type RsvpFormData } from '@/lib/schemas/rsvpSchema'
-import { ModalForm } from './ModalForm'
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import { LottieLight } from 'lottie-react';
+import { Button } from '@/components/ui/button';
+import { type RsvpFormData } from '@/lib/schemas/rsvpSchema';
+import { ModalForm } from './ModalForm';
 
-const confirmationButtonLabel = 'Bora confirmar presença'
+const confirmationButtonLabel = 'Bora confirmar presença';
 
-const feedbackFallbackMessage = '{{copy: rsvp_feedback_fallback}}'
-const CONFETTI_SOURCE = '/assets/images/confetti.json'
-const RSVP_CONFIRMED_STORAGE_KEY = 'digital-invite:rsvp-confirmed'
-const RSVP_CONFIRMED_STORAGE_VALUE = 'true'
-const RSVP_NAME_STORAGE_KEY = 'digital-invite:rsvp-name'
+const feedbackFallbackMessage = '{{copy: rsvp_feedback_fallback}}';
+const CONFETTI_SOURCE = '/assets/images/confetti.json';
+const RSVP_CONFIRMED_STORAGE_KEY = 'digital-invite:rsvp-confirmed';
+const RSVP_CONFIRMED_STORAGE_VALUE = 'true';
+const RSVP_NAME_STORAGE_KEY = 'digital-invite:rsvp-name';
 
 function readConfirmedFlag(): boolean {
   try {
-    return window.localStorage.getItem(RSVP_CONFIRMED_STORAGE_KEY) === RSVP_CONFIRMED_STORAGE_VALUE
+    return window.localStorage.getItem(RSVP_CONFIRMED_STORAGE_KEY) === RSVP_CONFIRMED_STORAGE_VALUE;
   } catch {
-    return false
+    return false;
   }
 }
 
 function writeConfirmedFlag(): void {
   try {
-    window.localStorage.setItem(RSVP_CONFIRMED_STORAGE_KEY, RSVP_CONFIRMED_STORAGE_VALUE)
+    window.localStorage.setItem(RSVP_CONFIRMED_STORAGE_KEY, RSVP_CONFIRMED_STORAGE_VALUE);
   } catch {
     // Storage is denied in private mode and some in-app webviews; the confirmation
     // still holds for this session, only the next visit forgets it.
@@ -32,19 +32,15 @@ function writeConfirmedFlag(): void {
 
 function readConfirmedName(): string | null {
   try {
-    return window.localStorage.getItem(RSVP_NAME_STORAGE_KEY)
+    return window.localStorage.getItem(RSVP_NAME_STORAGE_KEY);
   } catch {
-    return null
+    return null;
   }
 }
 
-/**
- * Kept in its own try/catch, separate from the flag's: a quota error on the
- * name must not roll back a confirmation that was already written.
- */
 function writeConfirmedName(name: string): void {
   try {
-    window.localStorage.setItem(RSVP_NAME_STORAGE_KEY, name)
+    window.localStorage.setItem(RSVP_NAME_STORAGE_KEY, name);
   } catch {
     // Same contract as the flag: the session keeps the name, the next visit
     // falls back to the name-less message.
@@ -52,28 +48,32 @@ function writeConfirmedName(name: string): void {
 }
 
 function buildFeedbackMessage(name: string | null): string {
-  const trimmedName = name?.trim() ?? ''
+  const trimmedName = name?.trim() ?? '';
 
   if (trimmedName === '') {
-    return feedbackFallbackMessage
+    return feedbackFallbackMessage;
   }
 
-  const [firstName] = trimmedName.split(' ')
+  const [firstName] = trimmedName.split(' ');
 
-  return `Tá confirmado ${firstName}!`
+  return `Tá confirmado ${firstName}!`;
 }
 
 const revealVariants: Variants = {
   hidden: { y: 12, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.4, ease: 'easeOut' } },
-}
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.4, ease: 'easeOut' },
+  },
+};
 
 interface MotionAwareProps {
-  reduceMotion: boolean
+  reduceMotion: boolean;
 }
 
 interface ConfirmationButtonProps extends MotionAwareProps {
-  onOpenModal: () => void
+  onOpenModal: () => void;
 }
 
 function ConfirmationButton({ reduceMotion, onOpenModal }: ConfirmationButtonProps) {
@@ -84,16 +84,11 @@ function ConfirmationButton({ reduceMotion, onOpenModal }: ConfirmationButtonPro
       viewport={{ once: true }}
       variants={revealVariants}
     >
-      <Button
-        variant="xilo"
-        size="lg"
-        onClick={onOpenModal}
-        className='w-78 h-24 text-lg'
-      >
+      <Button variant="xilo" size="lg" onClick={onOpenModal} className="w-78 h-24 text-lg">
         {confirmationButtonLabel}
       </Button>
     </motion.div>
-  )
+  );
 }
 
 function ConfettiLayer() {
@@ -107,24 +102,24 @@ function ConfettiLayer() {
         className="h-full w-full"
       />
     </div>
-  )
+  );
 }
 
 interface SuccessStateProps extends MotionAwareProps {
-  justConfirmed: boolean
-  message: string
+  justConfirmed: boolean;
+  message: string;
 }
 
 function SuccessState({ reduceMotion, justConfirmed, message }: SuccessStateProps) {
-  const regionRef = useRef<HTMLDivElement>(null)
+  const regionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (justConfirmed) {
-      regionRef.current?.focus()
+      regionRef.current?.focus();
     }
-  }, [justConfirmed])
+  }, [justConfirmed]);
 
-  const shouldAnimate = justConfirmed && !reduceMotion
+  const shouldAnimate = justConfirmed && !reduceMotion;
 
   return (
     <motion.div
@@ -139,26 +134,26 @@ function SuccessState({ reduceMotion, justConfirmed, message }: SuccessStateProp
       {shouldAnimate && <ConfettiLayer />}
       <p className="relative z-10 font-body text-2xl text-carved-black sm:text-3xl">{message}</p>
     </motion.div>
-  )
+  );
 }
 
 export function RsvpForm() {
-  const reduceMotion = useReducedMotion() ?? false
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [hasConfirmed, setHasConfirmed] = useState(() => readConfirmedFlag())
-  const [justConfirmed, setJustConfirmed] = useState(false)
-  const [confirmedName, setConfirmedName] = useState(() => readConfirmedName())
+  const reduceMotion = useReducedMotion() ?? false;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasConfirmed, setHasConfirmed] = useState(() => readConfirmedFlag());
+  const [justConfirmed, setJustConfirmed] = useState(false);
+  const [confirmedName, setConfirmedName] = useState(() => readConfirmedName());
 
-  const openModal = useCallback(() => setIsModalOpen(true), [])
+  const openModal = useCallback(() => setIsModalOpen(true), []);
 
   const confirm = useCallback((data: RsvpFormData) => {
-    writeConfirmedFlag()
-    writeConfirmedName(data.name)
-    setConfirmedName(data.name)
-    setHasConfirmed(true)
-    setJustConfirmed(true)
-    setIsModalOpen(false)
-  }, [])
+    writeConfirmedFlag();
+    writeConfirmedName(data.name);
+    setConfirmedName(data.name);
+    setHasConfirmed(true);
+    setJustConfirmed(true);
+    setIsModalOpen(false);
+  }, []);
 
   return (
     <section className="relative flex min-h-48 w-full flex-col items-center justify-center gap-6 overflow-x-clip text-center sm:min-h-64">
@@ -173,5 +168,5 @@ export function RsvpForm() {
       )}
       <ModalForm open={isModalOpen} onOpenChange={setIsModalOpen} onConfirm={confirm} />
     </section>
-  )
+  );
 }

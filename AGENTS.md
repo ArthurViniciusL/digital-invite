@@ -66,9 +66,9 @@ last resort; comments should be rare; ESLint's existing config is not to be work
   exports. Hooks: `useThing.ts`. Props typed with a local `interface XProps`.
 - Imports use the `@/` alias (configured in both `vite.config.ts` and `tsconfig.app.json`), not
   relative `../..` paths. Inline type imports: `import { type ReactNode } from 'react'`.
-- Prettier: no semicolons, single quotes, trailing commas, printWidth 100, 2 spaces.
+- Prettier: semicolons, single quotes, trailing commas, printWidth 100, 2 spaces.
 - No comment explains what code already says through naming — see `.agents/rules/`. Reserve a
-  comment for a genuinely non-obvious *why*.
+  comment for a genuinely non-obvious _why_.
 - ESLint is type-aware and strict: `no-explicit-any`, `no-unused-vars`, `camelcase`,
   `id-length` min 3 (exceptions `id, to, db, fn, on`), `complexity` max 8, `max-depth` 3,
   `max-lines-per-function` 60, `max-params` 3, `eqeqeq`, `no-else-return`, `prefer-const`,

@@ -1,39 +1,38 @@
-import { useFormContext } from 'react-hook-form'
-import { Minus, Plus } from 'lucide-react'
+import { useFormContext } from 'react-hook-form';
+import { Minus, Plus } from 'lucide-react';
 
-import { CarvedFieldMessage } from '@/components/form/CarvedTextField'
+import { CarvedFieldMessage } from '@/components/form/CarvedTextField';
 import {
   carvedFieldItemClasses,
   carvedInputClasses,
   carvedLabelClasses,
   carvedRuleWrapperClasses,
-} from '@/components/form/carvedFieldStyles'
-import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { cn } from '@/lib/utils'
-import { MAX_GUEST_COUNT, type RsvpFormData } from '@/lib/schemas/rsvpSchema'
+} from '@/components/form/carvedFieldStyles';
+import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
+import { MAX_GUEST_COUNT, type RsvpFormData } from '@/lib/schemas/rsvpSchema';
 
-/** 44px floor for a tap target; `size="icon-lg"` is only 36px. */
-const STEPPER_BUTTON_CLASSES = 'size-11'
+const STEPPER_BUTTON_CLASSES = 'size-11';
 
 function readCount(value: unknown) {
-  const parsed = Number(value)
+  const parsed = Number(value);
 
-  return Number.isFinite(parsed) ? Math.trunc(parsed) : 1
+  return Number.isFinite(parsed) ? Math.trunc(parsed) : 1;
 }
 
 function stepCount(value: unknown, delta: number) {
-  return Math.min(MAX_GUEST_COUNT, Math.max(1, readCount(value) + delta))
+  return Math.min(MAX_GUEST_COUNT, Math.max(1, readCount(value) + delta));
 }
 
 interface CarvedStepperFieldProps {
-  name: 'guestCount'
-  label: string
+  name: 'guestCount';
+  label: string;
 }
 
 export function CarvedStepperField({ name, label }: CarvedStepperFieldProps) {
-  const { setValue } = useFormContext<RsvpFormData>()
+  const { setValue } = useFormContext<RsvpFormData>();
 
   return (
     <FormField<RsvpFormData>
@@ -78,5 +77,5 @@ export function CarvedStepperField({ name, label }: CarvedStepperFieldProps) {
         </FormItem>
       )}
     />
-  )
+  );
 }

@@ -25,10 +25,10 @@ festive, yet sober, never childish.
 
 ### 4.2 Colour palette
 
-| Colour | Use |
-| --- | --- |
-| **Preto Entalhe** (#1C1410) | Primary — stroke, illustrations, display text |
-| **Branco Osso** (#F4EEDD) | Primary — background, breathing room, text on dark surfaces |
+| Colour                      | Use                                                                 |
+| --------------------------- | ------------------------------------------------------------------- |
+| **Preto Entalhe** (#1C1410) | Primary — stroke, illustrations, display text                       |
+| **Branco Osso** (#F4EEDD)   | Primary — background, breathing room, text on dark surfaces         |
 | **Marrom Sertão** (#6B4226) | Complementary — subtle detail, assets, secondary type, button hover |
 
 > Pending revalidation: the HEX values above come from an earlier craft/beige style guide and still
@@ -80,10 +80,10 @@ reinforce the hand-carved feel. Avoid a uniform, perfectly symmetrical radius.
 The code identifiers are the English equivalents of the 4.2 palette, already declared in
 `src/styles/globals.css` and exposed to Tailwind through `tailwind.config.ts`:
 
-| CSS variable | Design system | Value |
-| --- | --- | --- |
+| CSS variable           | Design system | Value     |
+| ---------------------- | ------------- | --------- |
 | `--color-carved-black` | Preto Entalhe | `#1C1410` |
-| `--color-bone-white` | Branco Osso | `#F4EEDD` |
+| `--color-bone-white`   | Branco Osso   | `#F4EEDD` |
 | `--color-sertao-brown` | Marrom Sertão | `#6B4226` |
 
 The three values live in exactly one place. No component and no asset repeats a literal HEX, so the
@@ -121,11 +121,11 @@ second calendar icon in this project is visual debt, not identity.
 Every file declares a `viewBox` on the root element and **never** a fixed `width`/`height`. The
 consumer decides the size, through CSS.
 
-| Type | viewBox | When to use |
-| --- | --- | --- |
-| Icon | `0 0 24 24` | A symbol read from 16px up, beside text or inside a button |
-| Illustration | `0 0 256 256` | A standalone piece: hero, divider, sertão scene |
-| Texture | free, square | A repeating paper/print pattern |
+| Type         | viewBox       | When to use                                                |
+| ------------ | ------------- | ---------------------------------------------------------- |
+| Icon         | `0 0 24 24`   | A symbol read from 16px up, beside text or inside a button |
+| Illustration | `0 0 256 256` | A standalone piece: hero, divider, sertão scene            |
+| Texture      | free, square  | A repeating paper/print pattern                            |
 
 The reference unit in this document is **`u` = 1/24 of the viewBox side**. In an icon `1u` = 1; in an
 illustration `1u` ≈ 10.67. Every measurement below is in `u`, so it holds at both sizes.
@@ -137,11 +137,11 @@ stroke from touching the edge once the icon is scaled down.
 
 Three named weights, all relative to the viewBox:
 
-| Name | Value | Use |
-| --- | --- | --- |
-| Heavy | `1u` | Outer silhouette outline |
+| Name   | Value  | Use                           |
+| ------ | ------ | ----------------------------- |
+| Heavy  | `1u`   | Outer silhouette outline      |
 | Medium | `0.6u` | Internal divisions, structure |
-| Light | `0.3u` | Hatching, detail |
+| Light  | `0.3u` | Hatching, detail              |
 
 The rule that comes from woodcut: **no stroke is uniform along its own length**. A gouge bites deeper
 in the middle of a cut than at the ends. In practice, prefer a filled `<path>` over a `<line>` with a
@@ -191,7 +191,6 @@ Shadow is **always** hatching, per 4.5. Parallel lines for midtone, cross-hatchi
 - `fill-opacity`, `stroke-opacity` or `opacity` below 1
 - Any colour outside the three palette tokens
 
-
 ## 9.1 Gouge marks inside solid masses
 
 Section 9 covers shadow cast onto bare paper. This section covers the opposite cut: the light marks
@@ -208,11 +207,11 @@ A gouge mark is a **short leaf**, not a line and not a wedge: it comes to a poin
 and swells at its middle. That is section 7's rule about the gouge biting deeper mid-cut, expressed
 as an outline. It is always a filled `<path>` with class `paper`, never a `stroke`.
 
-| Parameter | Value |
-| --- | --- |
+| Parameter     | Value                                                               |
+| ------------- | ------------------------------------------------------------------- |
 | Maximum width | `0.48u` on an illustration, `1.2u` on an icon; always at mid-length |
-| Length | `0.75u` to `3.7u`, most of them near `1.7u` |
-| Bow | Slight, one direction only |
+| Length        | `0.75u` to `3.7u`, most of them near `1.7u`                         |
+| Bow           | Slight, one direction only                                          |
 
 Width is **independent of length** in the reference: a mark of `0.75u` and a mark of `3.7u` are both
 about `0.48u` across. Long marks are slivers, short ones are almost round. Do not scale the width
@@ -221,9 +220,9 @@ with the length.
 The width profile is what separates a carved mark from a vector shard. Measured across the
 reference's 34 marks, as a fraction of each mark's own length:
 
-| Position along the mark | 5% | 25% | 50% | 75% | 95% |
-| --- | --- | --- | --- | --- | --- |
-| Width | 0.04 | 0.23 | 0.29 | 0.27 | 0.12 |
+| Position along the mark | 5%   | 25%  | 50%  | 75%  | 95%  |
+| ----------------------- | ---- | ---- | ---- | ---- | ---- |
+| Width                   | 0.04 | 0.23 | 0.29 | 0.27 | 0.12 |
 
 The mark holds at least four fifths of its full width across its **middle 60%**, then closes fast at
 both ends. A mark that is widest near one end and tapers steadily to the other reads as a triangular
@@ -242,7 +241,7 @@ scattering is the point.
 - **Density varies by region.** In the reference: 20 marks on the trunk, 8 on one arm, 6 on the
   other. The principal mass carries roughly three times the marks of a secondary one.
 - **No minimum mass width.** The reference's narrow arm measures `3.6u` and still carries 6 marks.
-  A narrow mass gets *fewer* marks, never zero.
+  A narrow mass gets _fewer_ marks, never zero.
 - **Count**: about 30 to 35 on a full illustration; 3 to 5 on an icon.
 - **Orientation** tends toward the local long axis of the mass, but the scatter is wide and its
   tail matters more than its centre. Measured on the reference: two marks in three sit within 30° of
@@ -262,10 +261,10 @@ scaling down and keeps none of the texture it cost.
 
 Both illustrations and icons carry gouge marks, at different counts and different widths.
 
-| Type | Marks | Max width | Floor size | Check |
-| --- | --- | --- | --- | --- |
-| Illustration, 256u | 30 to 35 | `0.48u` | 64px | The mass still reads dark, not grey |
-| Icon, 24u | 3 to 5, at the long end of the length range | `1.2u` | **24px** | The marks are still separate from each other |
+| Type               | Marks                                       | Max width | Floor size | Check                                        |
+| ------------------ | ------------------------------------------- | --------- | ---------- | -------------------------------------------- |
+| Illustration, 256u | 30 to 35                                    | `0.48u`   | 64px       | The mass still reads dark, not grey          |
+| Icon, 24u          | 3 to 5, at the long end of the length range | `1.2u`    | **24px**   | The marks are still separate from each other |
 
 **A marked icon has a floor of 24px and the solid version is what goes below it.** Section 6 defines
 an icon as a symbol read from 16px up, and a gouge mark cannot meet that: `1u` is two thirds of a
@@ -320,9 +319,9 @@ File names are **English**, lowercase `snake_case`, named after the subject with
 Same rule as `AGENTS.md`: code, file names and comments in English; interface text and guest-facing
 strings in Portuguese.
 
-| Convention | Example |
-| --- | --- |
-| Subject only | `broom.svg`, `sun.svg` |
+| Convention                           | Example                            |
+| ------------------------------------ | ---------------------------------- |
+| Subject only                         | `broom.svg`, `sun.svg`             |
 | Numbered variant of the same subject | `cactus_001.svg`, `cactus_002.svg` |
 
 Add the `_001` suffix only when a second take on the same subject actually exists. A single version

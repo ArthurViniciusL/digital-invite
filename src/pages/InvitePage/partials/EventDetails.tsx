@@ -1,42 +1,62 @@
-import { Calendar, Clock, ExternalLink, MapPin, type LucideIcon } from 'lucide-react'
-import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import { Title } from '@/components/typograph/Title'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { Calendar, Clock, ExternalLink, MapPin, type LucideIcon } from 'lucide-react';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import { Title } from '@/components/typograph/Title';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-const eventDetailsHeading = 'Sobre'
-const gpsLinkLabel = 'Curiar no mapa'
+const eventDetailsHeading = 'Sobre';
+const gpsLinkLabel = 'Curiar no mapa';
 const eventClosingMessage =
-  'Guarde essa data com carinho: confirme sua presença e venha celebrar com a gente'
+  'Guarde essa data com carinho: confirme sua presença e venha celebrar com a gente';
 
-const eventDateLabel = 'Data'
-const eventDateValue = '27 de setembro de 2026'
-const eventTimeLabel = 'Horário'
-const eventTimeValue = '11h30'
-const eventVenueLabel = 'Local'
-const eventVenueValue = 'Alto da Serra Recepções, Cuité'
+const eventDateLabel = 'Data';
+const eventDateValue = '27 de setembro de 2026';
+const eventTimeLabel = 'Horário';
+const eventTimeValue = '11h30';
+const eventVenueLabel = 'Local';
+const eventVenueValue = 'Alto da Serra Recepções, Cuité';
 
-const GPS_LINK_HREF = 'https://maps.app.goo.gl/xxoBYQV8dQhPRaQi8'
+const GPS_LINK_HREF = 'https://maps.app.goo.gl/xxoBYQV8dQhPRaQi8';
 
 const panelVariants: Variants = {
   hidden: { y: 24, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
-}
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5, ease: 'easeOut' },
+  },
+};
 
 const gpsVariants: Variants = {
   hidden: { y: 12, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.4, delay: 0.15, ease: 'easeOut' } },
-}
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      delay: 0.15,
+      ease: 'easeOut',
+    },
+  },
+};
 
 const closingMessageVariants: Variants = {
   hidden: { y: 12, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.4, delay: 0.3, ease: 'easeOut' } },
-}
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      delay: 0.3,
+      ease: 'easeOut',
+    },
+  },
+};
 
 interface FactRowProps {
-  icon: LucideIcon
-  label: string
-  value: string
+  icon: LucideIcon;
+  label: string;
+  value: string;
 }
 
 function FactRow({ icon: Icon, label, value }: FactRowProps) {
@@ -48,11 +68,11 @@ function FactRow({ icon: Icon, label, value }: FactRowProps) {
         <p className="font-body text-xl text-carved-black sm:text-2xl">{value}</p>
       </div>
     </div>
-  )
+  );
 }
 
 interface GpsCallToActionProps {
-  reduceMotion: boolean
+  reduceMotion: boolean;
 }
 
 function GpsCallToAction({ reduceMotion }: GpsCallToActionProps) {
@@ -71,11 +91,11 @@ function GpsCallToAction({ reduceMotion }: GpsCallToActionProps) {
         {gpsLinkLabel}
       </motion.a>
     </Button>
-  )
+  );
 }
 
 export function EventDetails() {
-  const reduceMotion = useReducedMotion() ?? false
+  const reduceMotion = useReducedMotion() ?? false;
 
   return (
     <section className="flex w-full flex-col items-center gap-6 text-center">
@@ -109,5 +129,5 @@ export function EventDetails() {
         {eventClosingMessage}
       </motion.p>
     </section>
-  )
+  );
 }

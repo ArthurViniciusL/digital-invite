@@ -11,7 +11,7 @@ What is on disk today:
 - `src/pages/InvitePage/partials/ModalForm.tsx` — a `Dialog` with `showCloseButton={false}`, a
   `.carved-1` `DialogContent`, a title constant of `'Convidado'`, a body of `'Em breve!'`, a
   `DialogClose`-wrapped corner `X` button, and a single "Confirmar" button calling `onConfirm: () =>
-  void`.
+void`.
 - `src/pages/InvitePage/partials/RsvpForm.tsx` — owns `isModalOpen`, `hasConfirmed` (lazy
   `useState(() => readConfirmedFlag())`), `justConfirmed`, the two `localStorage` helpers, the Lottie
   confetti layer and the feedback text `'Tá confirmado {user_name}!'`.
@@ -135,15 +135,15 @@ it and Enter in any field submits.
 
 Files:
 
-| Path | Responsibility |
-| --- | --- |
-| `src/pages/InvitePage/partials/ModalForm.tsx` | Dialog shell, `useForm`, `handleSubmit`, footer |
-| `src/pages/InvitePage/partials/RsvpFormFields.tsx` | The four fields in order; no state |
-| `src/components/form/CarvedTextField.tsx` | Label + ruled-line input + error message |
-| `src/components/form/CarvedStepperField.tsx` | Label + `−`/`+` pair + numeric field + error |
-| `src/lib/formatters/whatsappNumber.ts` | `formatWhatsappNumber(raw: string): string`, pure |
-| `src/lib/schemas/rsvpSchema.ts` | `whatsapp`, new bounds, pt-BR messages |
-| `src/pages/InvitePage/partials/RsvpForm.tsx` | Validated payload, name persistence, interpolation |
+| Path                                               | Responsibility                                     |
+| -------------------------------------------------- | -------------------------------------------------- |
+| `src/pages/InvitePage/partials/ModalForm.tsx`      | Dialog shell, `useForm`, `handleSubmit`, footer    |
+| `src/pages/InvitePage/partials/RsvpFormFields.tsx` | The four fields in order; no state                 |
+| `src/components/form/CarvedTextField.tsx`          | Label + ruled-line input + error message           |
+| `src/components/form/CarvedStepperField.tsx`       | Label + `−`/`+` pair + numeric field + error       |
+| `src/lib/formatters/whatsappNumber.ts`             | `formatWhatsappNumber(raw: string): string`, pure  |
+| `src/lib/schemas/rsvpSchema.ts`                    | `whatsapp`, new bounds, pt-BR messages             |
+| `src/pages/InvitePage/partials/RsvpForm.tsx`       | Validated payload, name persistence, interpolation |
 
 Two directories are new and neither is named in `SYSTEM-DESIGN.md` §4:
 
@@ -195,15 +195,15 @@ tall box clips the text.
 
 Specifics:
 
-| Property | Value | Why |
-| --- | --- | --- |
-| Radius | `rounded-none` | Square, because the carve belongs to the panel and the buttons |
-| Rule | `border-0 border-b-4` | Thick per §4.5; constant weight in every state (see focus) |
-| Rule colour, at rest | `border-sertao-brown` | §4.2's documented job for the third token: "subtle detail, secondary type" |
-| Fill | `bg-bone-white` | Explicit, not `bg-transparent` — there is no alpha anywhere on the surface |
-| Height | `h-12` (48px) | Above the 44px tap-target floor |
-| Text | `font-body text-lg text-carved-black` | 18px: Caveat runs small, and anything under 16px makes iOS Safari zoom the page on focus |
-| Shadow | none | §4.5 |
+| Property             | Value                                 | Why                                                                                      |
+| -------------------- | ------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Radius               | `rounded-none`                        | Square, because the carve belongs to the panel and the buttons                           |
+| Rule                 | `border-0 border-b-4`                 | Thick per §4.5; constant weight in every state (see focus)                               |
+| Rule colour, at rest | `border-sertao-brown`                 | §4.2's documented job for the third token: "subtle detail, secondary type"               |
+| Fill                 | `bg-bone-white`                       | Explicit, not `bg-transparent` — there is no alpha anywhere on the surface               |
+| Height               | `h-12` (48px)                         | Above the 44px tap-target floor                                                          |
+| Text                 | `font-body text-lg text-carved-black` | 18px: Caveat runs small, and anything under 16px makes iOS Safari zoom the page on focus |
+| Shadow               | none                                  | §4.5                                                                                     |
 
 `dev` reads the generated `input.tsx` and neutralises, at the call site, every default that draws a
 ring, a shadow, a radius, a `dark:` variant or a `destructive` tint. `src/components/ui/` is not
@@ -249,7 +249,7 @@ Whatsapp                                   <- label, carved-black
 3px of wrapper padding. Below it, a message in `font-body text-base text-carved-black`, preceded by a
 `TriangleAlert` at `size-4`, `aria-hidden`, inline.
 
-- "The engraver cut the line twice" is a woodcut-native way to say *look here*, and it is
+- "The engraver cut the line twice" is a woodcut-native way to say _look here_, and it is
   unmistakably distinct from focus (one line) at a glance and at 320px.
 - It is pure borders. No `repeating-linear-gradient`, so no argument with §4.5's ban on gradients,
   and nothing for QA to have to adjudicate.
@@ -306,7 +306,7 @@ Quantidade de convite
   it is inherited from `button.tsx`, which this change does not edit, and overriding it would mean
   inventing a disabled treatment for the whole button system. Out of scope; noted.
 - **Both buttons keep `.carved-3`** (baked into `xilo`), deliberately repeating each other. §5.3 is
-  about neighbouring shapes not looking accidentally similar; a matched `−`/`+` pair is *supposed* to
+  about neighbouring shapes not looking accidentally similar; a matched `−`/`+` pair is _supposed_ to
   read as one control, and alternating their silhouettes would look like a mistake. The differentiation
   in this row comes from the centre field, which is a ruled line and not a carved shape at all.
 - The field stays typeable, so a guest can enter `4` directly instead of tapping `+` four times.
@@ -331,14 +331,14 @@ with room to spare, which is why the buttons flank rather than stack.
 
 Layout:
 
-| Element | Treatment |
-| --- | --- |
-| Panel width | `DialogContent` gets `sm:max-w-md`; the generated default `sm:max-w-sm` (384px) is tight for four labelled fields |
-| Panel padding | `px-5 py-8 sm:px-8 sm:py-10`, down from the shipped `px-6 py-10 sm:px-10 sm:py-12` — a form needs the width more than the air |
-| Alignment | The shipped `text-center` on `DialogContent` is **removed**. Header stays centred via `DialogHeader`; the field stack and every error message are `text-left`. Centred labels and centred error text under a left-aligned value are unreadable |
-| Field rhythm | `space-y-5` between fields; `gap-2` between a label and its rule; `gap-1.5` between a rule and its message |
-| Tall content | `DialogContent` gets `max-h-[90dvh] overflow-y-auto`. Four fields with two errors showing exceeds a 320×568 viewport. The carved border scrolls with the panel, so the silhouette stays whole — preferable to an inner scroll area that would put a scrollbar through the middle of the form |
-| Footer | Keeps the shipped `m-0 flex-row justify-center gap-3 border-0 bg-transparent p-0` override, which neutralises the generated `DialogFooter`'s `border-t bg-muted/50 -mx-4 -mb-4 rounded-b-xl` |
+| Element       | Treatment                                                                                                                                                                                                                                                                                    |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Panel width   | `DialogContent` gets `sm:max-w-md`; the generated default `sm:max-w-sm` (384px) is tight for four labelled fields                                                                                                                                                                            |
+| Panel padding | `px-5 py-8 sm:px-8 sm:py-10`, down from the shipped `px-6 py-10 sm:px-10 sm:py-12` — a form needs the width more than the air                                                                                                                                                                |
+| Alignment     | The shipped `text-center` on `DialogContent` is **removed**. Header stays centred via `DialogHeader`; the field stack and every error message are `text-left`. Centred labels and centred error text under a left-aligned value are unreadable                                               |
+| Field rhythm  | `space-y-5` between fields; `gap-2` between a label and its rule; `gap-1.5` between a rule and its message                                                                                                                                                                                   |
+| Tall content  | `DialogContent` gets `max-h-[90dvh] overflow-y-auto`. Four fields with two errors showing exceeds a 320×568 viewport. The carved border scrolls with the panel, so the silhouette stays whole — preferable to an inner scroll area that would put a scrollbar through the middle of the form |
+| Footer        | Keeps the shipped `m-0 flex-row justify-center gap-3 border-0 bg-transparent p-0` override, which neutralises the generated `DialogFooter`'s `border-t bg-muted/50 -mx-4 -mb-4 rounded-b-xl`                                                                                                 |
 
 #### The submit button
 
@@ -356,12 +356,12 @@ gain that is real but small. If the user wants it, it becomes a copy placeholder
 
 `src/lib/schemas/rsvpSchema.ts`, Zod v4. Field names stay English; messages stay pt-BR.
 
-| Field | Change | Reason |
-| --- | --- | --- |
-| `name` | add `.trim()`, add `.max(60, …)` | The value is now rendered back into a message and written to `localStorage`. `.trim()` makes `"  a  "` fail `.min(2)` as it should |
-| `email` | unchanged | `z.email('E-mail inválido')` already correct on v4 |
-| `guestCount` | add `.max(10, …)`, add an explicit non-numeric message, add a message to `.int()` | See below |
-| `whatsapp` | **new** — `z.string().trim().min(1, …).regex(/^\d{2} 9 \d{4}-\d{4}$/, …)` | See below |
+| Field        | Change                                                                            | Reason                                                                                                                             |
+| ------------ | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `name`       | add `.trim()`, add `.max(60, …)`                                                  | The value is now rendered back into a message and written to `localStorage`. `.trim()` makes `"  a  "` fail `.min(2)` as it should |
+| `email`      | unchanged                                                                         | `z.email('E-mail inválido')` already correct on v4                                                                                 |
+| `guestCount` | add `.max(10, …)`, add an explicit non-numeric message, add a message to `.int()` | See below                                                                                                                          |
+| `whatsapp`   | **new** — `z.string().trim().min(1, …).regex(/^\d{2} 9 \d{4}-\d{4}$/, …)`         | See below                                                                                                                          |
 
 **`guestCount`'s upper bound: 10.** `PROJECT.md` §5.1 expects "até ~30 registros de RSVP (grupos
 familiares incluídos)", so a single invite claiming 50 people is a typo or abuse, and there is no
@@ -373,7 +373,7 @@ re-typing `10`.
 
 **`guestCount`'s non-numeric message is mandatory.** `z.coerce.number()` on `"abc"` produces `NaN`
 and Zod answers with its default English string ("Invalid input: expected number, received NaN").
-Since the field is `type="text"` with `inputMode="numeric"` (decision 4), a guest *can* type a letter,
+Since the field is `type="text"` with `inputMode="numeric"` (decision 4), a guest _can_ type a letter,
 so that English string is reachable by a Brazilian guest — a direct violation of the
 Portuguese-UI rule. `.int()` needs its own message for the same reason (`"1.5"` coerces fine and then
 fails `.int()`).
@@ -425,13 +425,13 @@ formatWhatsappNumber(raw: string): string
 
 Behaviour: strip every non-digit, keep at most 11, then emit by digit count.
 
-| Digits typed | Output |
-| --- | --- |
-| 0 | `''` |
-| 1–2 | `83` |
-| 3 | `83 9` |
-| 4–7 | `83 9 8765` |
-| 8–11 | `83 9 8765-4321` |
+| Digits typed | Output           |
+| ------------ | ---------------- |
+| 0            | `''`             |
+| 1–2          | `83`             |
+| 3            | `83 9`           |
+| 4–7          | `83 9 8765`      |
+| 8–11         | `83 9 8765-4321` |
 
 - **It never emits a trailing separator.** `83 ` and `83 9 8765-` are not reachable outputs. This is
   what makes backspacing work: the guest deletes a digit, the function reformats from the remaining
@@ -463,7 +463,7 @@ renders the success state from first paint. That path has **no name**. Once the 
 a returning guest would read `Tá confirmado !` — a broken string shipped to a real guest, and
 silently, because nothing throws.
 
-**Decision: do both. Persist the name under a second key, *and* specify a name-less fallback
+**Decision: do both. Persist the name under a second key, _and_ specify a name-less fallback
 message.** Neither half is sufficient on its own, and the reason the second half is not belt-and-
 braces is concrete: **every guest who has already confirmed under the shipped build has the flag and
 no name.** A name-only solution ships the broken string to exactly those people.
@@ -530,7 +530,7 @@ control, and in doing so:
 
 - **Retires the "no visible dismissal control" trade-off.** The concern that argued for a footer
   button — Escape does not exist on a phone, and "tap outside to close" is a convention a guest either
-  knows or does not — is now *answered* by the corner `X`, which is thumb-reachable and labelled. The
+  knows or does not — is now _answered_ by the corner `X`, which is thumb-reachable and labelled. The
   earlier design's mobile-first worry is resolved, not accepted as a cost.
 - **Keeps the irreversibility trade-off intact.** Backing out is now easy; undoing a confirmation
   still is not, and this change makes it slightly worse by storing a second key. There is still no
@@ -540,7 +540,7 @@ control, and in doing so:
   - **It has no accessible name.** It contains a bare Lucide `<X />` and nothing else — no
     `aria-label`, no `sr-only` text. A screen reader announces an unlabelled button. It gains
     `aria-label="Fechar"` (pt-BR, per the UI-text rule) and `aria-hidden` on the icon. Note this is
-    *not* the English `sr-only` "Close" the generated `dialog.tsx` ships — that one is still
+    _not_ the English `sr-only` "Close" the generated `dialog.tsx` ships — that one is still
     suppressed by `showCloseButton={false}`, so the previous change's claim that the gap "needs no
     follow-up" was right about the generated control and wrong about the hand-rolled replacement.
   - **It uses `hover:bg-amber-800`**, a stock Tailwind colour outside the three-token palette, in
@@ -646,14 +646,14 @@ exactly: `Convidado`, `Seu nome`, `Whatsapp`, `83 9 xxxx-xxxx`, `E-mail`,
 `Tá confirmado <primeiro nome>!`, and the three existing schema messages (`Informe seu nome`,
 `E-mail inválido`, `Mínimo de 1 pessoa`).
 
-| Slot | Must communicate | Length | Tone |
-| --- | --- | --- | --- |
-| `{{copy: rsvp_modal_intro}}` | That filling this in is what confirms the guest's presence. Replaces `'Em breve!'` in `DialogDescription` | ≤ 12 words, one sentence | Warm, festive, sober — Cordel Arcade. Not instructional ("preencha os campos abaixo") |
-| `{{copy: rsvp_whatsapp_helper}}` | Why the number is being asked for: it is how the organizer will reach the guest | ≤ 10 words | Plain and reassuring; it is a privacy answer, not a sales line |
-| `{{copy: rsvp_feedback_fallback}}` | The same celebration as `Tá confirmado <nome>!` but with no name in it — a complete sentence, not the named one with a gap | ≤ 5 words | Identical register to `Tá confirmado …!` — the two are read by the same guest on different visits |
-| `{{copy: rsvp_error_whatsapp_required}}` | The field is empty and must be filled | ≤ 6 words | Imperative, direct, no apology. Matches `Informe seu nome`'s register |
-| `{{copy: rsvp_error_whatsapp_format}}` | The number is incomplete or is not a mobile — say the expected shape, mention it must be a celular | ≤ 10 words | Says how to fix it, never just "inválido" |
-| `{{copy: rsvp_error_name_max}}` | The name is longer than 60 characters | ≤ 8 words | Same register as the other field errors |
-| `{{copy: rsvp_error_guest_count_type}}` | Only numbers belong in this field | ≤ 8 words | Same register. Must exist, or Zod answers in English |
-| `{{copy: rsvp_error_guest_count_int}}` | A whole number, not a fraction | ≤ 8 words | Same register |
-| `{{copy: rsvp_error_guest_count_max}}` | The ceiling is 10 people per invite, and the organizer should be contacted for more | ≤ 12 words | Not scolding; the guest with a big family is a good problem |
+| Slot                                     | Must communicate                                                                                                           | Length                   | Tone                                                                                              |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------- |
+| `{{copy: rsvp_modal_intro}}`             | That filling this in is what confirms the guest's presence. Replaces `'Em breve!'` in `DialogDescription`                  | ≤ 12 words, one sentence | Warm, festive, sober — Cordel Arcade. Not instructional ("preencha os campos abaixo")             |
+| `{{copy: rsvp_whatsapp_helper}}`         | Why the number is being asked for: it is how the organizer will reach the guest                                            | ≤ 10 words               | Plain and reassuring; it is a privacy answer, not a sales line                                    |
+| `{{copy: rsvp_feedback_fallback}}`       | The same celebration as `Tá confirmado <nome>!` but with no name in it — a complete sentence, not the named one with a gap | ≤ 5 words                | Identical register to `Tá confirmado …!` — the two are read by the same guest on different visits |
+| `{{copy: rsvp_error_whatsapp_required}}` | The field is empty and must be filled                                                                                      | ≤ 6 words                | Imperative, direct, no apology. Matches `Informe seu nome`'s register                             |
+| `{{copy: rsvp_error_whatsapp_format}}`   | The number is incomplete or is not a mobile — say the expected shape, mention it must be a celular                         | ≤ 10 words               | Says how to fix it, never just "inválido"                                                         |
+| `{{copy: rsvp_error_name_max}}`          | The name is longer than 60 characters                                                                                      | ≤ 8 words                | Same register as the other field errors                                                           |
+| `{{copy: rsvp_error_guest_count_type}}`  | Only numbers belong in this field                                                                                          | ≤ 8 words                | Same register. Must exist, or Zod answers in English                                              |
+| `{{copy: rsvp_error_guest_count_int}}`   | A whole number, not a fraction                                                                                             | ≤ 8 words                | Same register                                                                                     |
+| `{{copy: rsvp_error_guest_count_max}}`   | The ceiling is 10 people per invite, and the organizer should be contacted for more                                        | ≤ 12 words               | Not scolding; the guest with a big family is a good problem                                       |
