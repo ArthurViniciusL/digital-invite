@@ -2,14 +2,16 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { LottieLight } from 'lottie-react'
 import { Button } from '@/components/ui/button'
+import { type RsvpFormData } from '@/lib/schemas/rsvpSchema'
 import { ModalForm } from './ModalForm'
 
 const confirmationButtonLabel = 'Bora confirmar presença'
 
-const feedbackMessage = 'Tá confirmado {user_name}!'
+const feedbackFallbackMessage = '{{copy: rsvp_feedback_fallback}}'
 const CONFETTI_SOURCE = '/assets/images/confetti.json'
 const RSVP_CONFIRMED_STORAGE_KEY = 'digital-invite:rsvp-confirmed'
 const RSVP_CONFIRMED_STORAGE_VALUE = 'true'
+const RSVP_NAME_STORAGE_KEY = 'digital-invite:rsvp-name'
 
 function readConfirmedFlag(): boolean {
   try {
@@ -26,6 +28,39 @@ function writeConfirmedFlag(): void {
     // Storage is denied in private mode and some in-app webviews; the confirmation
     // still holds for this session, only the next visit forgets it.
   }
+}
+
+function readConfirmedName(): string | null {
+  try {
+    return window.localStorage.getItem(RSVP_NAME_STORAGE_KEY)
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Kept in its own try/catch, separate from the flag's: a quota error on the
+ * name must not roll back a confirmation that was already written.
+ */
+function writeConfirmedName(name: string): void {
+  try {
+    window.localStorage.setItem(RSVP_NAME_STORAGE_KEY, name)
+  } catch {
+    // Same contract as the flag: the session keeps the name, the next visit
+    // falls back to the name-less message.
+  }
+}
+
+function buildFeedbackMessage(name: string | null): string {
+  const trimmedName = name?.trim() ?? ''
+
+  if (trimmedName === '') {
+    return feedbackFallbackMessage
+  }
+
+  const [firstName] = trimmedName.split(' ')
+
+  return `Tá confirmado ${firstName}!`
 }
 
 const revealVariants: Variants = {
@@ -77,9 +112,10 @@ function ConfettiLayer() {
 
 interface SuccessStateProps extends MotionAwareProps {
   justConfirmed: boolean
+  message: string
 }
 
-function SuccessState({ reduceMotion, justConfirmed }: SuccessStateProps) {
+function SuccessState({ reduceMotion, justConfirmed, message }: SuccessStateProps) {
   const regionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -101,9 +137,7 @@ function SuccessState({ reduceMotion, justConfirmed }: SuccessStateProps) {
       variants={revealVariants}
     >
       {shouldAnimate && <ConfettiLayer />}
-      <p className="relative z-10 font-body text-2xl text-carved-black sm:text-3xl">
-        {feedbackMessage}
-      </p>
+      <p className="relative z-10 font-body text-2xl text-carved-black sm:text-3xl">{message}</p>
     </motion.div>
   )
 }
@@ -113,11 +147,14 @@ export function RsvpForm() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [hasConfirmed, setHasConfirmed] = useState(() => readConfirmedFlag())
   const [justConfirmed, setJustConfirmed] = useState(false)
+  const [confirmedName, setConfirmedName] = useState(() => readConfirmedName())
 
   const openModal = useCallback(() => setIsModalOpen(true), [])
 
-  const confirm = useCallback(() => {
+  const confirm = useCallback((data: RsvpFormData) => {
     writeConfirmedFlag()
+    writeConfirmedName(data.name)
+    setConfirmedName(data.name)
     setHasConfirmed(true)
     setJustConfirmed(true)
     setIsModalOpen(false)
@@ -126,7 +163,11 @@ export function RsvpForm() {
   return (
     <section className="relative flex min-h-48 w-full flex-col items-center justify-center gap-6 overflow-x-clip text-center sm:min-h-64">
       {hasConfirmed ? (
-        <SuccessState reduceMotion={reduceMotion} justConfirmed={justConfirmed} />
+        <SuccessState
+          reduceMotion={reduceMotion}
+          justConfirmed={justConfirmed}
+          message={buildFeedbackMessage(confirmedName)}
+        />
       ) : (
         <ConfirmationButton reduceMotion={reduceMotion} onOpenModal={openModal} />
       )}

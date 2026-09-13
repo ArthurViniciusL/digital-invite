@@ -4,15 +4,10 @@ import { Title } from '@/components/typograph/Title'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
-/**
- * The heading, GPS link label, and closing message below are draft placeholder
- * text, not final wording — see the `{{copy: ...}}` slots in
- * openspec/changes/add-event-details-section/design.md.
- */
 const eventDetailsHeading = 'Sobre'
 const gpsLinkLabel = 'Curiar no mapa'
 const eventClosingMessage =
-  'Guarde essa data com carinho: confirme sua presença até 26/09/2026 e venha celebrar com a gente o cordel do Muri.'
+  'Guarde essa data com carinho: confirme sua presença e venha celebrar com a gente'
 
 const eventDateLabel = 'Data'
 const eventDateValue = '27 de setembro de 2026'
