@@ -152,7 +152,6 @@ export function RsvpForm() {
     setConfirmedName(data.name);
     setHasConfirmed(true);
     setJustConfirmed(true);
-    setIsModalOpen(false);
   }, []);
 
   return (
