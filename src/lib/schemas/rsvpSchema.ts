@@ -35,6 +35,34 @@ export interface RsvpRow {
   numero_pessoas: number;
 }
 
+export interface RsvpRecordRow extends RsvpRow {
+  id: string;
+  status: string;
+  created_at: string;
+}
+
+export interface RsvpRecord {
+  id: string;
+  name: string;
+  email: string;
+  whatsapp: string;
+  guestCount: number;
+  status: string;
+  createdAt: string;
+}
+
+export function toRsvpRecord(row: RsvpRecordRow): RsvpRecord {
+  return {
+    id: row.id,
+    name: row.nome,
+    email: row.email,
+    whatsapp: row.whatsapp,
+    guestCount: row.numero_pessoas,
+    status: row.status,
+    createdAt: row.created_at,
+  };
+}
+
 export function toRsvpRow(data: RsvpFormData): RsvpRow {
   return {
     nome: data.name,

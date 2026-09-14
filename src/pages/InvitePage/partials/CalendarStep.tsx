@@ -42,7 +42,11 @@ export function CalendarStep({ onClose }: CalendarStepProps) {
       variants={stepVariants}
       className="flex flex-col items-center gap-6 text-center"
     >
-      <img src="https://play-lh.googleusercontent.com/vEoqLbT_QkYcEaawWBRc22N6i98OUtOUpM1LmKdVs_xx7lCsUyFfV0ZiqoUXjMijUteiBhhN4K5MpoF96FRNOg=w240-h480" alt="Calendar" className="rounded-2xl h-12 w-12" />
+      <img
+        src="https://play-lh.googleusercontent.com/vEoqLbT_QkYcEaawWBRc22N6i98OUtOUpM1LmKdVs_xx7lCsUyFfV0ZiqoUXjMijUteiBhhN4K5MpoF96FRNOg=w240-h480"
+        alt="Calendar"
+        className="rounded-2xl h-12 w-12"
+      />
 
       <DialogDescription
         className={cn('font-body text-xl text-balance text-carved-black sm:text-2xl')}
