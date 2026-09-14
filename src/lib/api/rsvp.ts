@@ -4,9 +4,7 @@ import { toRsvpRow, type RsvpFormData } from '@/lib/schemas/rsvpSchema';
 const RSVP_TABLE = 'rsvp';
 const UNIQUE_VIOLATION_CODE = '23505';
 
-export type CreateRsvpResult =
-  | { ok: true }
-  | { ok: false; reason: 'duplicate_email' | 'unknown' };
+export type CreateRsvpResult = { ok: true } | { ok: false; reason: 'duplicate_email' | 'unknown' };
 
 export async function createRsvp(data: RsvpFormData): Promise<CreateRsvpResult> {
   const { error } = await supabase.from(RSVP_TABLE).insert(toRsvpRow(data));

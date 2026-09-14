@@ -24,7 +24,10 @@ const closeButtonLabel = 'Fechar';
 const duplicateEmailMessage = 'Esse e-mail já confirmou presença.';
 const submitErrorMessage = 'Não deu pra confirmar agora. Tente de novo.';
 
-type RsvpModalStep = 'form' | 'calendar';
+const STEP_FORM = 'form';
+const STEP_CALENDAR = 'calendar';
+
+type RsvpModalStep = typeof STEP_FORM | typeof STEP_CALENDAR;
 
 const emptyForm: RsvpFormInput = {
   name: '',
@@ -52,7 +55,7 @@ function useRsvpModalFlow(
   onConfirm: (data: RsvpFormData) => void,
   onOpenChange: (open: boolean) => void,
 ) {
-  const [step, setStep] = useState<RsvpModalStep>('form');
+  const [step, setStep] = useState<RsvpModalStep>(STEP_FORM);
   const [confirmedData, setConfirmedData] = useState<RsvpFormData | null>(null);
   const { submit, isSubmitting } = useCreateRsvp();
 
@@ -62,7 +65,7 @@ function useRsvpModalFlow(
 
       if (result.ok) {
         setConfirmedData(data);
-        setStep('calendar');
+        setStep(STEP_CALENDAR);
         return;
       }
 
@@ -122,7 +125,7 @@ export function ModalForm({ open, onOpenChange, onConfirm }: ModalFormProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    if (step === 'calendar') {
+    if (step === STEP_CALENDAR) {
       titleRef.current?.focus();
     }
   }, [step]);
@@ -144,11 +147,11 @@ export function ModalForm({ open, onOpenChange, onConfirm }: ModalFormProps) {
             tabIndex={-1}
             className="font-title text-2xl text-carved-black outline-none sm:text-3xl"
           >
-            {step === 'form' ? guestStepTitle : calendarStepTitle}
+            {step === STEP_FORM ? guestStepTitle : calendarStepTitle}
           </DialogTitle>
         </DialogHeader>
 
-        {step === 'form' ? (
+        {step === STEP_FORM ? (
           <GuestStep form={form} onValid={confirmValid} isSubmitting={isSubmitting} />
         ) : (
           <CalendarStep onClose={requestClose} />
