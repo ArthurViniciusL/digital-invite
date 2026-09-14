@@ -56,7 +56,7 @@ function buildFeedbackMessage(name: string | null): string {
 
   const [firstName] = trimmedName.split(' ');
 
-  return `Tá confirmado ${firstName}!`;
+  return `Tá confirmado, ${firstName}!`;
 }
 
 const revealVariants: Variants = {

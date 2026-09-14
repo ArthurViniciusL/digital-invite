@@ -30,11 +30,6 @@ interface CalendarStepProps {
 export function CalendarStep({ onClose }: CalendarStepProps) {
   const reduceMotion = useReducedMotion() ?? false;
 
-  const openCalendar = () => {
-    window.open(CALENDAR_URL, '_blank', 'noopener');
-    onClose();
-  };
-
   return (
     <motion.div
       initial={reduceMotion ? false : 'hidden'}
@@ -55,17 +50,23 @@ export function CalendarStep({ onClose }: CalendarStepProps) {
       </DialogDescription>
 
       <DialogFooter className="m-0 flex w-full flex-row justify-center gap-3 border-0 bg-transparent p-0">
-        <Button variant="xilo" type="button" onClick={onClose} className={answerButtonClassName}>
+        <Button
+          variant="xilo"
+          type="button"
+          onClick={onClose}
+          className={answerButtonClassName}
+        >
           {declineButtonLabel}
         </Button>
         <Button
           variant="xilo"
-          type="button"
-          onClick={openCalendar}
+          asChild
           className={answerButtonClassName}
         >
-          {acceptButtonLabel}
-          <span className="sr-only">{newTabHint}</span>
+          <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" onClick={onClose}>
+            {acceptButtonLabel}
+            <span className="sr-only">{newTabHint}</span>
+          </a>
         </Button>
       </DialogFooter>
     </motion.div>
