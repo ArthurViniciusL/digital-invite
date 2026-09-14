@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { X } from 'lucide-react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -12,6 +13,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import { useCreateRsvp } from '@/hooks/useCreateRsvp';
 import { rsvpSchema, type RsvpFormData, type RsvpFormInput } from '@/lib/schemas/rsvpSchema';
 import { CalendarStep } from './CalendarStep';
 import { GuestStep } from './GuestStep';
@@ -19,6 +21,8 @@ import { GuestStep } from './GuestStep';
 const guestStepTitle = 'Convidado';
 const calendarStepTitle = 'Calendário';
 const closeButtonLabel = 'Fechar';
+const duplicateEmailMessage = 'Esse e-mail já confirmou presença.';
+const submitErrorMessage = 'Não deu pra confirmar agora. Tente de novo.';
 
 type RsvpModalStep = 'form' | 'calendar';
 
@@ -50,27 +54,50 @@ function useRsvpModalFlow(
 ) {
   const [step, setStep] = useState<RsvpModalStep>('form');
   const [confirmedData, setConfirmedData] = useState<RsvpFormData | null>(null);
+  const { submit, isSubmitting } = useCreateRsvp();
 
-  const confirmValid = useCallback((data: RsvpFormData) => {
-    setConfirmedData(data);
-    setStep('calendar');
-  }, []);
+  const sendRsvp = useCallback(
+    async (data: RsvpFormData) => {
+      const result = await submit(data);
+
+      if (result.ok) {
+        setConfirmedData(data);
+        setStep('calendar');
+        return;
+      }
+
+      toast.error(result.reason === 'duplicate_email' ? duplicateEmailMessage : submitErrorMessage);
+    },
+    [submit],
+  );
+
+  const confirmValid = useCallback(
+    (data: RsvpFormData) => {
+      void sendRsvp(data);
+    },
+    [sendRsvp],
+  );
 
   const handleOpenChange = useCallback(
     (next: boolean) => {
+      if (isSubmitting) {
+        return;
+      }
+
       if (!next && confirmedData !== null) {
         onConfirm(confirmedData);
       }
 
       onOpenChange(next);
     },
-    [confirmedData, onConfirm, onOpenChange],
+    [confirmedData, isSubmitting, onConfirm, onOpenChange],
   );
 
   const requestClose = useCallback(() => handleOpenChange(false), [handleOpenChange]);
 
   return {
     step,
+    isSubmitting,
     confirmValid,
     requestClose,
     handleOpenChange,
@@ -88,7 +115,7 @@ export function ModalForm({ open, onOpenChange, onConfirm }: ModalFormProps) {
     resolver: zodResolver(rsvpSchema),
     defaultValues: emptyForm,
   });
-  const { step, confirmValid, requestClose, handleOpenChange } = useRsvpModalFlow(
+  const { step, isSubmitting, confirmValid, requestClose, handleOpenChange } = useRsvpModalFlow(
     onConfirm,
     onOpenChange,
   );
@@ -122,7 +149,7 @@ export function ModalForm({ open, onOpenChange, onConfirm }: ModalFormProps) {
         </DialogHeader>
 
         {step === 'form' ? (
-          <GuestStep form={form} onValid={confirmValid} />
+          <GuestStep form={form} onValid={confirmValid} isSubmitting={isSubmitting} />
         ) : (
           <CalendarStep onClose={requestClose} />
         )}

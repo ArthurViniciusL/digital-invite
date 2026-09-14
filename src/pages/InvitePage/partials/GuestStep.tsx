@@ -7,13 +7,15 @@ import { type RsvpFormData, type RsvpFormInput } from '@/lib/schemas/rsvpSchema'
 import { RsvpFormFields } from './RsvpFormFields';
 
 const confirmButtonLabel = 'Confirmar';
+const submittingButtonLabel = 'Enviando...';
 
 interface GuestStepProps {
   form: UseFormReturn<RsvpFormInput, unknown, RsvpFormData>;
   onValid: (data: RsvpFormData) => void;
+  isSubmitting: boolean;
 }
 
-export function GuestStep({ form, onValid }: GuestStepProps) {
+export function GuestStep({ form, onValid, isSubmitting }: GuestStepProps) {
   return (
     <Form {...form}>
       <form
@@ -24,8 +26,14 @@ export function GuestStep({ form, onValid }: GuestStepProps) {
       >
         <RsvpFormFields />
         <DialogFooter className="m-0 flex-row justify-center gap-3 border-0 bg-transparent p-0">
-          <Button variant="xilo" type="submit" className="h-14 w-full text-base sm:w-auto sm:px-8">
-            {confirmButtonLabel}
+          <Button
+            variant="xilo"
+            type="submit"
+            disabled={isSubmitting}
+            aria-busy={isSubmitting}
+            className="h-14 w-full text-base sm:w-auto sm:px-8"
+          >
+            {isSubmitting ? submittingButtonLabel : confirmButtonLabel}
           </Button>
         </DialogFooter>
       </form>

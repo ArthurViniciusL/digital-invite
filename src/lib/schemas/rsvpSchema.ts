@@ -27,3 +27,19 @@ export const rsvpSchema = z.object({
 export type RsvpFormData = z.infer<typeof rsvpSchema>;
 
 export type RsvpFormInput = z.input<typeof rsvpSchema>;
+
+export interface RsvpRow {
+  nome: string;
+  email: string;
+  whatsapp: string;
+  numero_pessoas: number;
+}
+
+export function toRsvpRow(data: RsvpFormData): RsvpRow {
+  return {
+    nome: data.name,
+    email: data.email.trim().toLowerCase(),
+    whatsapp: data.whatsapp,
+    numero_pessoas: data.guestCount,
+  };
+}
