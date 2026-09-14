@@ -1,11 +1,34 @@
-/**
- * Reads the current Supabase Auth session and keeps it in sync.
- *
- * TODO: implement. It should resolve `supabase.auth.getSession()` once on
- * mount, subscribe to `supabase.auth.onAuthStateChange` for later updates, and
- * unsubscribe on unmount. Until then it reports a settled, signed-out state so
- * consumers can be written against the final shape.
- */
+import { useEffect, useState } from 'react';
+import { type Session } from '@supabase/supabase-js';
+
+import { supabase } from '@/lib/supabaseClient';
+
 export function useSession() {
-  return { session: null, isLoading: false };
+  const [session, setSession] = useState<Session | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    void supabase.auth.getSession().then(({ data }) => {
+      if (!isMounted) {
+        return;
+      }
+
+      setSession(data.session);
+      setIsLoading(false);
+    });
+
+    const { data: subscription } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession);
+      setIsLoading(false);
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.subscription.unsubscribe();
+    };
+  }, []);
+
+  return { session, isLoading };
 }

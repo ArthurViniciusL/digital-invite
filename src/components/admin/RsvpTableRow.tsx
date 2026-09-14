@@ -1,9 +1,6 @@
-import { formatWhatsappNumber } from '@/lib/formatters/whatsappNumber';
-import { formatRsvpDateTime } from '@/lib/formatters/rsvpDateTime';
+import { TableCell, TableRow } from '@/components/ui/table';
 import { type RsvpRecord } from '@/lib/schemas/rsvpSchema';
-
-const cellClassName =
-  'px-4 py-3 align-middle font-body text-lg text-carved-black whitespace-nowrap';
+import { RSVP_COLUMNS } from './rsvpColumns';
 
 interface RsvpTableRowProps {
   record: RsvpRecord;
@@ -11,17 +8,12 @@ interface RsvpTableRowProps {
 
 export function RsvpTableRow({ record }: RsvpTableRowProps) {
   return (
-    <tr className="border-b-2 border-sertao-brown last:border-b-0">
-      <th scope="row" className={`${cellClassName} text-left text-xl`}>
-        {record.name}
-      </th>
-      <td className={`${cellClassName} text-right tabular-nums`}>{record.guestCount}</td>
-      <td className={cellClassName}>{formatWhatsappNumber(record.whatsapp)}</td>
-      <td className={cellClassName}>{record.email}</td>
-      <td className={cellClassName}>{formatRsvpDateTime(record.createdAt)}</td>
-      <td className={`${cellClassName} font-title text-sm tracking-wide uppercase`}>
-        {record.status}
-      </td>
-    </tr>
+    <TableRow>
+      {RSVP_COLUMNS.map((column) => (
+        <TableCell key={column.key} className={column.className}>
+          {column.cell(record)}
+        </TableCell>
+      ))}
+    </TableRow>
   );
 }

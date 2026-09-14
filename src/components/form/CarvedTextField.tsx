@@ -32,6 +32,7 @@ interface CarvedTextFieldProps<TFieldValues extends FieldValues> {
   name: FieldPath<TFieldValues>;
   label: string;
   placeholder?: string;
+  type?: ComponentProps<'input'>['type'];
   inputMode?: ComponentProps<'input'>['inputMode'];
   autoComplete?: string;
   maxLength?: number;
@@ -43,6 +44,7 @@ export function CarvedTextField<TFieldValues extends FieldValues>({
   name,
   label,
   placeholder,
+  type,
   inputMode,
   autoComplete,
   maxLength,
@@ -64,6 +66,7 @@ export function CarvedTextField<TFieldValues extends FieldValues>({
                 {...field}
                 className={carvedInputClasses}
                 placeholder={placeholder}
+                type={type}
                 inputMode={inputMode}
                 autoComplete={autoComplete}
                 maxLength={maxLength}
