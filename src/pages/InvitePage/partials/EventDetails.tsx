@@ -6,8 +6,7 @@ import { cn } from '@/lib/utils';
 
 const eventDetailsHeading = 'Sobre';
 const gpsLinkLabel = 'Curiar no mapa';
-const eventClosingMessage =
-  'Confirme sua presença e venha celebrar com a gente!';
+const eventClosingMessage = 'Confirme sua presença e venha celebrar com a gente!';
 
 const eventDateLabel = 'Data';
 const eventDateValue = '27 de setembro de 2026';
