@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useCreateRsvp } from '@/hooks/useCreateRsvp';
+import { writeConfirmedFlag, writeConfirmedName } from '@/lib/rsvp/confirmationStorage';
 import { rsvpSchema, type RsvpFormData, type RsvpFormInput } from '@/lib/schemas/rsvpSchema';
 import { CalendarStep } from './CalendarStep';
 import { GuestStep } from './GuestStep';
@@ -64,6 +65,8 @@ function useRsvpModalFlow(
       const result = await submit(data);
 
       if (result.ok) {
+        writeConfirmedFlag();
+        writeConfirmedName(data.name);
         setConfirmedData(data);
         setStep(STEP_CALENDAR);
         return;
@@ -117,6 +120,7 @@ export function ModalForm({ open, onOpenChange, onConfirm }: ModalFormProps) {
   const form = useForm<RsvpFormInput, unknown, RsvpFormData>({
     resolver: zodResolver(rsvpSchema),
     defaultValues: emptyForm,
+    mode: 'onTouched',
   });
   const { step, isSubmitting, confirmValid, requestClose, handleOpenChange } = useRsvpModalFlow(
     onConfirm,

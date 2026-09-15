@@ -34,8 +34,28 @@ yarn build         # tsc -b && vite build
 yarn preview       # serve the production build
 ```
 
-There is **no test framework installed** — no vitest/jest, no test files. Don't invent a
-`yarn test`. Verification = `yarn lint && yarn typecheck && yarn build`.
+E2E tests use **Cypress** against a **local Supabase stack** (Supabase CLI + Docker). There is no
+unit test framework — no vitest/jest. Don't invent a `yarn test`.
+
+```bash
+yarn db:start      # supabase start: local Postgres + Auth, applies supabase/migrations + seed.sql
+yarn db:reset      # reapply migrations and seed
+yarn db:stop
+yarn e2e           # build with .env.test, serve on :4173, cypress run
+yarn e2e:open      # same, interactive runner
+```
+
+Specs live in `cypress/e2e/*.cy.ts` with their own `cypress/tsconfig.json`. The seeded admin is
+`e2e-admin` / `e2e-admin-password` (`supabase/seed.sql`). CI runs the same flow in
+`.github/workflows/e2e.yml`. Verification = `yarn lint && yarn typecheck && yarn build`, plus
+`yarn e2e` when tests are touched.
+
+The `qa` agent (`.agents/agents/qa.md`) writes test cases (`cypress/cases/*.md` scenarios and
+`cypress/e2e/*.cy.ts` specs), runs these checks, and writes failure reports to `qa-reports/`
+(git-ignored). The pipeline is: run QA → run the tests → on failure, write the report → failures
+caused by the test implementation are resolved by `qa` → the rest go to the `dev` agent, which
+writes a correction plan and then implements it. Subagents cannot call each other, so the main
+session passes the report path from `qa` to `dev`.
 
 ## Layout
 

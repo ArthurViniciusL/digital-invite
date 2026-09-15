@@ -40,8 +40,8 @@ build`, `yarn lint`, `yarn install`, and the `shadcn` CLI freely.
   Use this skill to pick up and implement the tasks of an existing change rather than inventing your
   own task breakdown.
 
-Skip `web-design-guidelines` and `writing-guidelines` — auditing UI compliance and prose is QA's
-job, not yours. Skip `canvas-design`, `algorithmic-art`, and `theme-factory` — those produce
+Skip `web-design-guidelines` and `writing-guidelines` — auditing UI compliance and prose is not part
+of implementation work. Skip `canvas-design`, `algorithmic-art`, and `theme-factory` — those produce
 graphic/static-art deliverables, not application code. Skip `vercel-react-native-skills` — this
 project is web only, not React Native.
 
@@ -88,9 +88,27 @@ Per `AGENTS.md`:
   in `src/styles/globals.css`. If you add a token, add it in both `tailwind.config.ts` and
   `globals.css`.
 
+## Receiving a QA report
+
+The `qa` agent writes failure reports to `qa-reports/*.md`. When you are given a report path:
+
+- Read the whole report first. Each failure has a stable ID (`QA-1`, `QA-2`…), a severity, an owner,
+  the exact error, and a reproduction command.
+- Work only on failures with `Owner: dev`. Failures with `Owner: qa` are test defects that the `qa`
+  agent resolves; leave them alone.
+- Before changing any code, write a correction plan and include it in your report back: for each QA
+  ID, the confirmed cause, the files to change, and the change itself. Treat "Suspected cause
+  (guess)" as a hint, not a diagnosis — confirm it in the code. Then implement the plan, `blocker`
+  failures first, then `major`, then `minor`.
+- If you conclude that a `dev`-owned failure is really a test defect, do not edit `cypress/`. Say so
+  in your report back with the evidence, so it can be sent back to `qa`.
+- Never edit or delete files in `qa-reports/`.
+
 ## How to report back
 
 1. What you implemented and where (file paths).
 2. Any stub you turned into real logic, and why the task required it.
-3. Anything you left out because it belonged to QA, the asset designer, or needed authorization you
+3. When working from a QA report: the correction plan, each QA ID you addressed, and any ID you did
+   not, with the reason.
+4. Anything you left out because it belonged to QA, the asset designer, or needed authorization you
    didn't have.

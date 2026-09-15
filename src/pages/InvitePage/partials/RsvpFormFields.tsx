@@ -18,7 +18,6 @@ export function RsvpFormFields() {
         placeholder="(xx) x xxxx-xxxx"
         inputMode="tel"
         autoComplete="tel"
-        maxLength={14}
         format={formatWhatsappNumber}
       />
       <CarvedTextField<RsvpFormData>

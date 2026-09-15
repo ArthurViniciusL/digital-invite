@@ -39,7 +39,7 @@ export function CalendarStep({ onClose }: CalendarStepProps) {
     >
       <img
         src="https://play-lh.googleusercontent.com/vEoqLbT_QkYcEaawWBRc22N6i98OUtOUpM1LmKdVs_xx7lCsUyFfV0ZiqoUXjMijUteiBhhN4K5MpoF96FRNOg=w240-h480"
-        alt="Calendar"
+        alt="Ícone do Google Agenda"
         className="rounded-2xl h-12 w-12"
       />
 
@@ -50,19 +50,10 @@ export function CalendarStep({ onClose }: CalendarStepProps) {
       </DialogDescription>
 
       <DialogFooter className="m-0 flex w-full flex-row justify-center gap-3 border-0 bg-transparent p-0">
-        <Button
-          variant="xilo"
-          type="button"
-          onClick={onClose}
-          className={answerButtonClassName}
-        >
+        <Button variant="xilo" type="button" onClick={onClose} className={answerButtonClassName}>
           {declineButtonLabel}
         </Button>
-        <Button
-          variant="xilo"
-          asChild
-          className={answerButtonClassName}
-        >
+        <Button variant="xilo" asChild className={answerButtonClassName}>
           <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" onClick={onClose}>
             {acceptButtonLabel}
             <span className="sr-only">{newTabHint}</span>

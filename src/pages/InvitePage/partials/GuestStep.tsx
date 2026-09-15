@@ -1,13 +1,14 @@
 import { type UseFormReturn } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
-import { DialogFooter } from '@/components/ui/dialog';
+import { DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Form } from '@/components/ui/form';
 import { type RsvpFormData, type RsvpFormInput } from '@/lib/schemas/rsvpSchema';
 import { RsvpFormFields } from './RsvpFormFields';
 
 const confirmButtonLabel = 'Confirmar';
 const submittingButtonLabel = 'Enviando...';
+const guestStepDescription = 'Confirme sua presença e venha celebrar com a gente!';
 
 interface GuestStepProps {
   form: UseFormReturn<RsvpFormInput, unknown, RsvpFormData>;
@@ -18,6 +19,7 @@ interface GuestStepProps {
 export function GuestStep({ form, onValid, isSubmitting }: GuestStepProps) {
   return (
     <Form {...form}>
+      <DialogDescription className="sr-only">{guestStepDescription}</DialogDescription>
       <form
         onSubmit={(event) => {
           void form.handleSubmit(onValid)(event);
